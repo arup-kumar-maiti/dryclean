@@ -30,10 +30,6 @@ jobs:
             exit 1
           fi
 
-      - name: Remove non-semver tags
-        shell: bash
-        run: git tag -d v1 2>/dev/null || true
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -43,12 +39,25 @@ jobs:
         shell: bash
         run: pip install build
 
+      - name: Remove non-semver tags
+        shell: bash
+        run: git tag -d v1 2>/dev/null || true
+
       - name: Build package
         shell: bash
         run: python -m build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Create GitHub release
+        shell: bash
+        run: |
+          VERSION="${{ github.ref_name }}"
+          NOTES=$(awk "/^## \[${VERSION#v}\]/{found=1; next} /^## \[/{found=0} found" CHANGELOG.md)
+          gh release create "$VERSION" --title "$VERSION" --notes "$NOTES"
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Update major version tag
         shell: bash
