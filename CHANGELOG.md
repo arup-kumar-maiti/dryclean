@@ -7,7 +7,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- CHANGELOG.md following Keep a Changelog format.
+- CHANGELOG.md in Keep a Changelog format.
 - CLAUDE.md template drift check in CI.
 - GitHub release creation in publish workflow.
 - Tone and ordering items in pre-edit checklist.
