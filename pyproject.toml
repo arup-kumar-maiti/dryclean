@@ -33,6 +33,7 @@ dryclean = "dryclean.cli:main"
 
 [tool.hatch.version]
 source = "vcs"
+tag-pattern = "v(?P<version>\\d+\\.\\d+\\.\\d+)"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dryclean"]
