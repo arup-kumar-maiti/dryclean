@@ -63,9 +63,9 @@ def read_template(name: str) -> str:
     return (TEMPLATES_ROOT / name).read_text(encoding="utf-8")
 
 
-def write_file(path: Path, content: str) -> None:
-    """Write a file and skip if it already exists."""
-    if path.exists():
+def write_file(path: Path, content: str, overwrite: bool = False) -> None:
+    """Write content to a file and create parent directories as needed."""
+    if not overwrite and path.exists():
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")

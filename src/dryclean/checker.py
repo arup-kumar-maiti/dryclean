@@ -1,12 +1,18 @@
 """Run quality checks via pre-commit with dryclean configs."""
 
-import shutil
 from pathlib import Path
 
-from dryclean.constant import TEMPLATES_ROOT
-from dryclean.util import CommandOptions, run_command, warning
+from dryclean.constant import DRYCLEAN_BIN, PRE_COMMIT_BIN
+from dryclean.util import (
+    CommandOptions,
+    read_template,
+    run_command,
+    warning,
+    write_file,
+)
 
 _CONFIG_DIR = Path("/tmp/dryclean")
+_DRYCLEAN_ENTRY_PREFIX = "entry: dryclean "
 _PRE_COMMIT_CI = "pre-commit-ci.yaml"
 _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
 _TEMPLATE_NAMES = [
@@ -23,7 +29,9 @@ _TEMPLATE_NAMES = [
 def _ensure_configs() -> None:
     _CONFIG_DIR.mkdir(exist_ok=True)
     for name in _TEMPLATE_NAMES:
-        shutil.copy(TEMPLATES_ROOT / f"{name}.tmpl", _CONFIG_DIR / name)
+        content = read_template(f"{name}.tmpl")
+        content = content.replace(_DRYCLEAN_ENTRY_PREFIX, f"entry: {DRYCLEAN_BIN} ")
+        write_file(_CONFIG_DIR / name, content, overwrite=True)
 
 
 def run_checks(directory: Path, ci: bool = False) -> bool:
@@ -33,7 +41,7 @@ def run_checks(directory: Path, ci: bool = False) -> bool:
     config_path = _CONFIG_DIR / config
     try:
         result = run_command(
-            ["pre-commit", "run", "--all-files", "--config", str(config_path)],
+            [PRE_COMMIT_BIN, "run", "--all-files", "--config", str(config_path)],
             CommandOptions(cwd=directory, stream=True),
         )
         return result.returncode == 0
