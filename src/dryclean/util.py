@@ -64,7 +64,7 @@ def read_template(name: str) -> str:
 
 
 def write_file(path: Path, content: str, overwrite: bool = False) -> None:
-    """Write content to a file, creating parent directories as needed."""
+    """Write content to a file and create parent directories as needed."""
     if not overwrite and path.exists():
         return
     path.parent.mkdir(parents=True, exist_ok=True)

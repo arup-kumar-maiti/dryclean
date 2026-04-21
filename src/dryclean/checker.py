@@ -12,6 +12,7 @@ from dryclean.util import (
 )
 
 _CONFIG_DIR = Path("/tmp/dryclean")
+_DRYCLEAN_ENTRY_PREFIX = "entry: dryclean "
 _PRE_COMMIT_CI = "pre-commit-ci.yaml"
 _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
 _TEMPLATE_NAMES = [
@@ -29,7 +30,7 @@ def _ensure_configs() -> None:
     _CONFIG_DIR.mkdir(exist_ok=True)
     for name in _TEMPLATE_NAMES:
         content = read_template(f"{name}.tmpl")
-        content = content.replace("entry: dryclean ", f"entry: {DRYCLEAN_BIN} ")
+        content = content.replace(_DRYCLEAN_ENTRY_PREFIX, f"entry: {DRYCLEAN_BIN} ")
         write_file(_CONFIG_DIR / name, content, overwrite=True)
 
 
