@@ -21,6 +21,13 @@ jobs:
         uses: ./ci
         with:
           install_from_source: "true"
+      - name: Check CLAUDE.md template drift
+        shell: bash
+        run: |
+          if ! diff -q CLAUDE.md src/dryclean/templates/CLAUDE.md.tmpl > /dev/null; then
+            echo "::error::CLAUDE.md and template have drifted. Run: cp CLAUDE.md src/dryclean/templates/CLAUDE.md.tmpl"
+            exit 1
+          fi
 
   review:
     name: dryclean PR Review
