@@ -8,10 +8,10 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - CHANGELOG.md following Keep a Changelog format.
-- Tone, ordering, and changelog rules in CLAUDE.md.
-- Tone and ordering items in pre-edit checklist.
-- GitHub release creation in publish workflow.
 - CLAUDE.md template drift check in CI.
+- GitHub release creation in publish workflow.
+- Tone and ordering items in pre-edit checklist.
+- Tone, ordering, and changelog rules in CLAUDE.md.
 
 ### Changed
 
@@ -48,8 +48,8 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- CLI with `init`, `run`, `commit`, and `check` commands.
 - 25 custom quality check scripts (JavaScript 7, Python 11, Shell 7).
+- Claude-powered PR review and description generation.
+- CLI with `init`, `run`, `commit`, and `check` commands.
 - GitHub Actions: `ci@v1`, `review@v1`, `describe@v1`.
 - Pre-commit integration with local auto-fix and CI report-only modes.
-- Claude-powered PR review and description generation.
