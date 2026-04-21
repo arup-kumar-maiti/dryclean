@@ -1,0 +1,175 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [javascript, json, yaml]
+        args: [--config, "/tmp/dryclean/prettierrc.json"]
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v10.2.1
+    hooks:
+      - id: eslint
+        args: [--config, "/tmp/dryclean/eslintrc.json"]
+        additional_dependencies:
+          - eslint-plugin-import
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.11
+    hooks:
+      - id: ruff-check
+        args: [--fix, --config, "/tmp/dryclean/ruff.toml"]
+      - id: ruff-format
+        args: [--config, "/tmp/dryclean/ruff.toml"]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+        args: [--config, "/tmp/dryclean/taplo.toml"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: no-commit-to-branch
+        args: [--branch, main]
+
+  - repo: local
+    hooks:
+      - id: check-comment-density-js
+        name: check comment density (javascript)
+        entry: dryclean check javascript check_comment_density
+        language: system
+        types: [javascript]
+      - id: check-comment-period-js
+        name: check comment period (javascript)
+        entry: dryclean check javascript check_comment_period
+        language: system
+        types: [javascript]
+      - id: check-constant-placement-js
+        name: check constant placement (javascript)
+        entry: dryclean check javascript check_constant_placement
+        language: system
+        types: [javascript]
+      - id: check-function-length-js
+        name: check function length (javascript)
+        entry: dryclean check javascript check_function_length
+        language: system
+        types: [javascript]
+      - id: check-inline-comments-js
+        name: check inline comments (javascript)
+        entry: dryclean check javascript check_inline_comments
+        language: system
+        types: [javascript]
+      - id: check-kebab-case-filename-js
+        name: check kebab case filename (javascript)
+        entry: dryclean check javascript check_kebab_case_filename
+        language: system
+        types: [javascript]
+      - id: check-section-dividers-js
+        name: check section dividers (javascript)
+        entry: dryclean check javascript check_section_dividers
+        language: system
+        types: [javascript]
+      - id: check-argument-count
+        name: check argument count
+        entry: dryclean check python check_argument_count
+        language: system
+        types: [python]
+      - id: check-comment-density-py
+        name: check comment density (python)
+        entry: dryclean check python check_comment_density
+        language: system
+        types: [python]
+      - id: check-comment-period-py
+        name: check comment period (python)
+        entry: dryclean check python check_comment_period
+        language: system
+        types: [python]
+      - id: check-constant-placement-py
+        name: check constant placement (python)
+        entry: dryclean check python check_constant_placement
+        language: system
+        types: [python]
+      - id: check-docstring-blocks
+        name: check docstring blocks
+        entry: dryclean check python check_docstring_blocks
+        language: system
+        types: [python]
+      - id: check-exception-location
+        name: check exception location
+        entry: dryclean check python check_exception_location
+        language: system
+        types: [python]
+      - id: check-function-length-py
+        name: check function length (python)
+        entry: dryclean check python check_function_length
+        language: system
+        types: [python]
+      - id: check-inline-comments-py
+        name: check inline comments (python)
+        entry: dryclean check python check_inline_comments
+        language: system
+        types: [python]
+      - id: check-internal-docstring
+        name: check internal docstring
+        entry: dryclean check python check_internal_docstring
+        language: system
+        types: [python]
+      - id: check-section-dividers-py
+        name: check section dividers (python)
+        entry: dryclean check python check_section_dividers
+        language: system
+        types: [python]
+      - id: check-snake-case-filename
+        name: check snake case filename
+        entry: dryclean check python check_snake_case_filename
+        language: system
+        types: [python]
+        exclude: '(^|/)__[a-z]+__\.py$'
+      - id: check-comment-density-sh
+        name: check comment density (shell)
+        entry: dryclean check shell check_comment_density
+        language: system
+        types: [bash]
+      - id: check-comment-period-sh
+        name: check comment period (shell)
+        entry: dryclean check shell check_comment_period
+        language: system
+        types: [bash]
+      - id: check-executable-permission
+        name: check executable permission
+        entry: dryclean check shell check_executable_permission
+        language: system
+        types: [bash]
+      - id: check-inline-comments-sh
+        name: check inline comments (shell)
+        entry: dryclean check shell check_inline_comments
+        language: system
+        types: [bash]
+      - id: check-kebab-case-filename-sh
+        name: check kebab case filename (shell)
+        entry: dryclean check shell check_kebab_case_filename
+        language: system
+        types: [bash]
+      - id: check-shebang
+        name: check shebang
+        entry: dryclean check shell check_shebang
+        language: system
+        types: [bash]
+      - id: check-strict-mode
+        name: check strict mode
+        entry: dryclean check shell check_strict_mode
+        language: system
+        types: [bash]

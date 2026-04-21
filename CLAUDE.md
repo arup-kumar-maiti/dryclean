@@ -1,0 +1,1 @@
+src/dryclean/templates/CLAUDE.md.tmpl

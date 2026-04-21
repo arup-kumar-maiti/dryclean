@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dryclean"
+dynamic = ["version"]
+description = "Multi-language code quality toolkit"
+authors = [
+    { name = "Arup Kumar Maiti", email = "arup@arupkumarmaiti.com" },
+]
+license = "MIT"
+requires-python = ">=3.11"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "commitizen>=4.13.10",
+    "pre-commit>=4.5.1",
+    "pyyaml>=6.0",
+    "rich>=15.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/arup-kumar-maiti/dryclean"
+Repository = "https://github.com/arup-kumar-maiti/dryclean"
+
+[project.scripts]
+dryclean = "dryclean.cli:main"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dryclean"]

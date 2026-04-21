@@ -1,0 +1,46 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    name: Build and Publish
+    if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on main
+        shell: bash
+        run: |
+          TAG_COMMIT=$(git rev-list -n 1 "${{ github.ref_name }}")
+          MAIN_COMMITS=$(git rev-list origin/main)
+          if ! echo "$MAIN_COMMITS" | grep -q "$TAG_COMMIT"; then
+            echo "::error::Tag ${{ github.ref_name }} is not on main branch"
+            exit 1
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install build tools
+        shell: bash
+        run: pip install build
+
+      - name: Build package
+        shell: bash
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

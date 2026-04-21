@@ -1,0 +1,48 @@
+name: dryclean Review
+description: Review PR changes using Claude
+
+inputs:
+  claude_code_oauth_token:
+    description: Claude Code OAuth token
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Load review prompt
+      id: prompt
+      shell: bash
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "content<<$EOF" >> $GITHUB_OUTPUT
+        cat ${{ github.action_path }}/prompt.md >> $GITHUB_OUTPUT
+        echo "$EOF" >> $GITHUB_OUTPUT
+
+    - name: Run Claude PR review
+      id: review
+      uses: anthropics/claude-code-action@v1
+      with:
+        claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
+        track_progress: "true"
+        use_sticky_comment: "true"
+        claude_args: >-
+          --json-schema '{
+            "type": "object",
+            "properties": {
+              "violations_found": {"type": "boolean"},
+              "violation_count": {"type": "integer", "minimum": 0},
+              "files_in_scope": {"type": "integer", "minimum": 0}
+            },
+            "required": ["violations_found", "violation_count", "files_in_scope"],
+            "additionalProperties": false
+          }'
+        prompt: ${{ steps.prompt.outputs.content }}
+
+    - name: Block merge on violations
+      id: block-merge
+      if: steps.review.outputs.structured_output != '' && fromJSON(steps.review.outputs.structured_output).violations_found == true
+      shell: bash
+      run: |
+        COUNT="${{ fromJSON(steps.review.outputs.structured_output).violation_count }}"
+        echo "::error::Claude review flagged ${COUNT} [Review] rule violation(s). See the sticky comment on this PR for details and fix them before merging."
+        exit 1

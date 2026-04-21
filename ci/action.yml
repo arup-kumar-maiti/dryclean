@@ -1,0 +1,35 @@
+name: dryclean CI
+description: Run quality checks
+
+inputs:
+  install_from_source:
+    description: Install dryclean from local source instead of PyPI
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.11"
+        cache: "pip"
+
+    - name: Set up Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: "24"
+
+    - name: Install dryclean
+      shell: bash
+      run: |
+        if [ "${{ inputs.install_from_source }}" = "true" ]; then
+          pip install -e "."
+        else
+          pip install dryclean
+        fi
+
+    - name: Run quality checks
+      shell: bash
+      run: dryclean run --ci

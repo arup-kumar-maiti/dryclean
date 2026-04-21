@@ -1,0 +1,65 @@
+name: dryclean CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+  issue_comment:
+    types: [created]
+
+jobs:
+  quality:
+    name: dryclean Quality Checks
+    if: github.event_name != 'issue_comment'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Run quality checks
+        uses: ./ci
+        with:
+          install_from_source: "true"
+
+  review:
+    name: dryclean PR Review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Run Claude PR review
+        uses: ./review
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  describe:
+    name: dryclean PR Description
+    if: |
+      (github.event_name == 'pull_request' && github.event.action == 'opened' && (github.event.pull_request.body == null || github.event.pull_request.body == '')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude describe'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Run Claude PR description
+        uses: ./describe
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
