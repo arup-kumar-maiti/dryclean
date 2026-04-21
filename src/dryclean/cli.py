@@ -20,7 +20,7 @@ from dryclean.checker import run_checks
 from dryclean.constant import CLAUDE_MD_PATH, WORKFLOW_PATH
 from dryclean.github import setup_github
 from dryclean.hook import install_hooks, validate_commit_message
-from dryclean.util import header, info, read_template, write_file
+from dryclean.util import header, info, read_template, warning, write_file
 
 _CLAUDE_MD_TEMPLATE = "CLAUDE.md.tmpl"
 _SCRIPTS_ROOT = Path(__file__).parent / "scripts"
@@ -74,7 +74,10 @@ def _handle_init(args: argparse.Namespace) -> None:
     write_file(CLAUDE_MD_PATH, read_template(_CLAUDE_MD_TEMPLATE))
     write_file(WORKFLOW_PATH, read_template(_WORKFLOW_TEMPLATE))
     install_hooks()
-    setup_github()
+    if sys.stdin.isatty():
+        setup_github()
+    else:
+        warning("Non-interactive shell. Skipping GitHub setup.")
     info("Done!")
 
 
