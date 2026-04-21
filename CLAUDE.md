@@ -38,6 +38,8 @@ Before writing or modifying any source file:
 - [ ] Imports grouped with one blank line between groups
 - [ ] Comments only for *why*, on the line **above**, never inline, ≤ 15% density
 - [ ] No trailing whitespace, newline at EOF
+- [ ] All non-code text follows Tone rules
+- [ ] Ordering follows Ordering rules
 
 ### Naming `[CI · Review]`
 
