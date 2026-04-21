@@ -3,6 +3,7 @@
 import sys
 from pathlib import Path
 
+from dryclean.constant import COMMITIZEN_BIN
 from dryclean.util import error, run_command, warning
 
 _ALLOWED_PREFIXES = ["ci", "docs", "feat", "fix", "init", "refactor", "test"]
@@ -49,7 +50,7 @@ def validate_commit_message(message_file: Path) -> bool:
         return (
             run_command(
                 [
-                    "cz",
+                    COMMITIZEN_BIN,
                     "check",
                     "--commit-msg-file",
                     str(message_file),
