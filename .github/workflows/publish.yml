@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
+      contents: write
       id-token: write
     steps:
       - name: Checkout repository
@@ -29,6 +30,10 @@ jobs:
             exit 1
           fi
 
+      - name: Remove non-semver tags
+        shell: bash
+        run: git tag -d v1 2>/dev/null || true
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -44,3 +49,10 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Update major version tag
+        shell: bash
+        run: |
+          MAJOR=$(echo "${{ github.ref_name }}" | grep -oP 'v\d+')
+          git tag -f "$MAJOR" "${{ github.ref_name }}"
+          git push origin "$MAJOR" --force
