@@ -64,6 +64,17 @@ Before writing or modifying any source file:
 - Never swallow silently.
 - Language-specific CI rules are in each language section below.
 
+### Tone `[Review]`
+
+All non-code text uses **imperative voice, present tense**. No gerunds, no passive, no third-person.
+
+- Docstrings → imperative verb, one sentence, trailing period → `Return the contents of a template file.`, not `Returns the contents…` or `Gets the contents…`.
+- Names and labels (e.g. workflow steps, action descriptions, CLI help) → imperative verb + object, no period → `Run quality checks`, not `Runs quality checks` or `Running quality checks`.
+- User-facing messages (error, info, warning) → full sentence, sentence case, trailing period → `Pre-commit not found. Skipping.`, not `pre-commit not found`.
+- Changelog entries under Added / Removed → noun phrase, no verb → `CLI with init and run commands.`, not `Add CLI with…`.
+- Changelog entries under Fixed / Changed → imperative verb → `Restrict trigger to semver tags.`, not `Trigger restricted to…`.
+- No filler, no hedging ("might", "could", "please"), no meta-commentary ("This will…", "Let's…").
+
 ### Comment rules `[CI · Review]`
 
 **Comment on _why_. Never on _what_.** `[Review]`
@@ -92,11 +103,36 @@ Comment format:
 - Newline at end of every file.
 - The language linter is the source of truth — **never** hand-tweak its output.
 
+### Ordering `[Review]`
+
+**Alphabetical** unless a stronger ordering exists:
+
+- Config and declaration keys → alphabetical.
+- Lists with no natural order → alphabetical.
+- Imports have their own rule (see language sections) — that takes precedence.
+
+**Functions in a module** → callees before callers (leaf-first), grouped by call chain:
+
+```
+_parse()             ← called by validate
+validate()           ← called by main (1st)
+_format()            ← called by render
+render()             ← called by main (2nd)
+main()               ← entry point, always last
+```
+
 ### Git
 
 - **Never commit to `main`.** Branch first.
 - Commit prefix: `ci`, `docs`, `feat`, `fix`, `init`, `refactor`, `test`.
 - `git commit --no-verify` exists for emergencies but **CI re-runs every check**. Don't use it to dodge a real failure.
+
+### Changelog `[Review]`
+
+Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Update `CHANGELOG.md` before every version tag.
+
+- Categories in this order: **Added**, **Changed**, **Removed**, **Fixed** — include only what applies.
+- Entry tone rules are in the Tone section above.
 
 ---
 
