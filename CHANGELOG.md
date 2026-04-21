@@ -5,13 +5,13 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.0.3] - 2026-04-21
 
-### Fixed
-
-- Remove non-semver tags before build and update major version tag after publish.
-
 ### Changed
 
 - Sort workflow permissions alphabetically for consistency.
+
+### Fixed
+
+- Remove non-semver tags before build and update major version tag after publish.
 
 ## [1.0.2] - 2026-04-21
 

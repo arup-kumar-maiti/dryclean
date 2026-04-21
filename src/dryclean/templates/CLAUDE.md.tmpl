@@ -131,7 +131,7 @@ main()               ← entry point, always last
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Update `CHANGELOG.md` before every version tag.
 
-- Categories: **Added**, **Changed**, **Fixed**, **Removed** — include only what applies.
+- Categories in this order: **Added**, **Changed**, **Removed**, **Fixed** — include only what applies.
 - Entry tone rules are in the Tone section above.
 
 ---
