@@ -3,6 +3,25 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2026-04-21
+
+### Added
+
+- CHANGELOG.md following Keep a Changelog format.
+- Tone, ordering, and changelog rules in CLAUDE.md.
+- Tone and ordering items in pre-edit checklist.
+- GitHub release creation in publish workflow.
+- CLAUDE.md template drift check in CI.
+
+### Changed
+
+- Sort workflow template permissions alphabetically.
+
+### Fixed
+
+- Resolve pre-commit, commitizen, and dryclean binaries by full venv path.
+- Skip GitHub setup gracefully in non-interactive shells.
+
 ## [1.0.3] - 2026-04-21
 
 ### Changed
