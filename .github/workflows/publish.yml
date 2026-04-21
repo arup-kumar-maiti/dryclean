@@ -23,16 +23,12 @@ jobs:
       - name: Verify tag is on main
         shell: bash
         run: |
-          TAG_COMMIT=$(git rev-list -n 1 "${{ github.ref_name }}")
-          MAIN_COMMITS=$(git rev-list origin/main)
-          if ! echo "$MAIN_COMMITS" | grep -q "$TAG_COMMIT"; then
+          tag_commit=$(git rev-list -n 1 "${{ github.ref_name }}")
+          main_commits=$(git rev-list origin/main)
+          if ! echo "$main_commits" | grep -q "$tag_commit"; then
             echo "::error::Tag ${{ github.ref_name }} is not on main branch"
             exit 1
           fi
-
-      - name: Remove non-semver tags
-        shell: bash
-        run: git tag -d v1 2>/dev/null || true
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -43,6 +39,10 @@ jobs:
         shell: bash
         run: pip install build
 
+      - name: Remove non-semver tags
+        shell: bash
+        run: git tag -d v1 2>/dev/null || true
+
       - name: Build package
         shell: bash
         run: python -m build
@@ -50,9 +50,19 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
+      - name: Create GitHub release
+        shell: bash
+        run: |
+          version="${{ github.ref_name }}"
+          [ -f CHANGELOG.md ] || { echo "CHANGELOG.md not found."; exit 1; }
+          notes=$(awk "/^## \[${version#v}\]/{found=1; next} /^## \[/{found=0} found" CHANGELOG.md)
+          gh release create "$version" --title "$version" --notes "$notes"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Update major version tag
         shell: bash
         run: |
-          MAJOR=$(echo "${{ github.ref_name }}" | grep -oP 'v\d+')
-          git tag -f "$MAJOR" "${{ github.ref_name }}"
-          git push origin "$MAJOR" --force
+          major=$(echo "${{ github.ref_name }}" | grep -oP 'v\d+')
+          git tag -f "$major" "${{ github.ref_name }}"
+          git push origin "$major" --force
