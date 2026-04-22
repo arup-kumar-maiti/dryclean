@@ -9,7 +9,7 @@ pip install dryclean
 dryclean init
 ```
 
-`dryclean init` sets up everything: `CLAUDE.md`, CI workflow, git hooks, GitHub branch protection, and OAuth token.
+`dryclean init` — Write `CLAUDE.md`, the CI workflow, and git hooks. In an interactive shell, also prompt to configure GitHub branch protection and store a Claude Code OAuth token.
 
 ## Commands
 
@@ -30,7 +30,7 @@ dryclean run --ci
 | Python     | ruff      | ruff       | mypy         |
 | Shell      | —         | shellcheck | —            |
 
-Plus: commit message format, trailing whitespace, EOF newlines, JSON/YAML/TOML syntax, merge conflicts, and 25 custom quality scripts.
+Plus: trailing whitespace, EOF newlines, JSON/YAML/TOML syntax, merge conflicts, no direct commits to main, commit message format, and 25 custom quality scripts.
 
 ## GitHub Actions
 
