@@ -3,6 +3,12 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2026-04-22
+
+### Fixed
+
+- Remove pip cache from CI action to support repos without requirements.txt or pyproject.toml.
+
 ## [1.0.4] - 2026-04-21
 
 ### Added
