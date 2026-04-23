@@ -13,7 +13,7 @@ from pathlib import Path
 
 _BLOCK_CLOSE = "*/"
 _BLOCK_OPEN = "/*"
-_DIRECTIVE_PATTERNS = re.compile(r"^\s*(?:stylelint|prettier|postcss)")
+_DIRECTIVE_PATTERN = re.compile(r"^\s*(?:stylelint|prettier|postcss)")
 _PERIOD = "."
 _SINGLE_LINE_BLOCK_SIZE = 1
 
@@ -38,7 +38,7 @@ def _extract_comment_text(line: str) -> str:
 
 
 def _is_directive(comment: str) -> bool:
-    return bool(_DIRECTIVE_PATTERNS.match(comment))
+    return bool(_DIRECTIVE_PATTERN.match(comment))
 
 
 def _collect_comment_blocks(path: Path) -> list[list[tuple[int, str]]]:

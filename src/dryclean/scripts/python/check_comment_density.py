@@ -37,13 +37,13 @@ def _analyze_file(path: Path) -> _FileResult:
         if token_type == tokenize.COMMENT:
             comment_lines.add(start[0])
 
-    all_lines = path.read_text(encoding="utf-8").splitlines()
+    lines = path.read_text(encoding="utf-8").splitlines()
     code_lines = sum(
         1
-        for index, line in enumerate(all_lines, start=1)
+        for line_num, line in enumerate(lines, start=1)
         if line.strip()
         and not line.strip().startswith(_COMMENT_PREFIX)
-        and index not in comment_lines
+        and line_num not in comment_lines
     )
 
     return _FileResult(

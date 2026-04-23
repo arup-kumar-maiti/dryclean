@@ -1,5 +1,5 @@
 """
-Check that Python docstrings do not contain Args/Returns/Raises blocks.
+Check that no Python docstring contains Args/Returns/Raises blocks.
 
 usage:
   python scripts/python/check_docstring_blocks.py [FILE ...]

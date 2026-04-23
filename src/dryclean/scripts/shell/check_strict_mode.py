@@ -1,5 +1,5 @@
 """
-Check that all Shell scripts use set -e for strict error handling.
+Check that all Shell files use set -e for strict error handling.
 
 usage:
   python scripts/shell/check_strict_mode.py [FILE ...]

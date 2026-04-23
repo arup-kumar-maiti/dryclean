@@ -1,5 +1,5 @@
 """
-Check that all Shell scripts have executable permission.
+Check that all Shell files have executable permission.
 
 usage:
   python scripts/shell/check_executable_permission.py [FILE ...]
