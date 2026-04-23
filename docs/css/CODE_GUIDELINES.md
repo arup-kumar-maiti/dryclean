@@ -16,7 +16,7 @@
   - Singular noun. **[Review]**
 - Classes: `kebab-case`. **[Review]**
 - Custom properties: `--kebab-case`. **[Review]**
-- Full words, no abbreviations except ones more recognizable than the full form (e.g. `bg`, `sm`, `md`, `lg`) — never lazy shorthand (e.g. `btn`, `clr`, `hdr`, `nav-pd`). **[Review]**
+- Full words, no abbreviations except ones more recognizable than the full form (e.g. `bg`, `lg`, `md`, `sm`) — never lazy shorthand (e.g. `btn`, `clr`, `hdr`, `nav-pd`). **[Review]**
 - Unclear name → rename first. **[Review]**
 
 ---
