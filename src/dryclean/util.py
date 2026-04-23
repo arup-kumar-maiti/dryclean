@@ -83,6 +83,7 @@ def _run_streamed(
         stderr=subprocess.STDOUT,
         text=True,
     )
+    assert process.stdout is not None
     for line in process.stdout:
         if options.skip_lines_containing not in line:
             sys.stdout.write(line)
@@ -91,7 +92,7 @@ def _run_streamed(
     return subprocess.CompletedProcess(command, process.returncode)
 
 
-def _run_captured(
+def _run_default(
     command: list[str], options: CommandOptions
 ) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
@@ -117,4 +118,4 @@ def run_command(
     """Run a command and optionally filter output or report errors."""
     if options.stream and options.skip_lines_containing:
         return _run_streamed(command, options)
-    return _run_captured(command, options)
+    return _run_default(command, options)
