@@ -3,7 +3,7 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        types_or: [css, javascript, json, yaml]
+        types_or: [css, html, javascript, json, yaml]
         args: [--config, "/tmp/dryclean/prettierrc.json"]
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
@@ -13,6 +13,12 @@ repos:
         args: [--config, "/tmp/dryclean/stylelintrc.json"]
         additional_dependencies:
           - stylelint-declaration-strict-value
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+    rev: v1.1.2
+    hooks:
+      - id: htmlhint
+        args: [--config, "/tmp/dryclean/htmlhintrc.json"]
 
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v10.2.1
@@ -83,6 +89,41 @@ repos:
         entry: dryclean check css check_section_dividers
         language: system
         types: [css]
+      - id: check-comment-density-html
+        name: check comment density (html)
+        entry: dryclean check html check_comment_density
+        language: system
+        types: [html]
+      - id: check-comment-period-html
+        name: check comment period (html)
+        entry: dryclean check html check_comment_period
+        language: system
+        types: [html]
+      - id: check-data-attribute-naming-html
+        name: check data attribute naming (html)
+        entry: dryclean check html check_data_attribute_naming
+        language: system
+        types: [html]
+      - id: check-deprecated-elements-html
+        name: check deprecated elements (html)
+        entry: dryclean check html check_deprecated_elements
+        language: system
+        types: [html]
+      - id: check-inline-comments-html
+        name: check inline comments (html)
+        entry: dryclean check html check_inline_comments
+        language: system
+        types: [html]
+      - id: check-kebab-case-filename-html
+        name: check kebab case filename (html)
+        entry: dryclean check html check_kebab_case_filename
+        language: system
+        types: [html]
+      - id: check-section-dividers-html
+        name: check section dividers (html)
+        entry: dryclean check html check_section_dividers
+        language: system
+        types: [html]
       - id: check-comment-density-js
         name: check comment density (javascript)
         entry: dryclean check javascript check_comment_density

@@ -39,7 +39,7 @@ def _add_commands(
     commit_parser.add_argument("message_file", type=Path, help="Commit message file")
     check_parser = subparsers.add_parser("check", help="Run a single check script")
     check_parser.add_argument(
-        "language", help="Language folder (css, javascript, python, shell)"
+        "language", help="Language folder (css, html, javascript, python, shell)"
     )
     check_parser.add_argument("script", help="Script name without .py extension")
     check_parser.add_argument(

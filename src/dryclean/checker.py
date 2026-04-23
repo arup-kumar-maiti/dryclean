@@ -17,6 +17,7 @@ _PRE_COMMIT_CI = "pre-commit-ci.yaml"
 _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
 _TEMPLATE_NAMES = [
     "eslintrc.json",
+    "htmlhintrc.json",
     "mypy.ini",
     _PRE_COMMIT_CI,
     _PRE_COMMIT_LOCAL,
