@@ -37,7 +37,7 @@
 ## Constants [CI · Review]
 
 - No magic numbers or strings. Use config or named constants.
-  - In comparisons (`if x == 3`). **[CI]**
+  - In comparisons (`if x == 3`). **[Review]**
   - In defaults and format strings. Inline f-strings in `raise` are fine. **[Review]**
 - Local constants → module top. **[CI]**
 - Shared constants → `constant.py`. **[Review]**
