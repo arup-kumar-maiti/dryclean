@@ -151,10 +151,10 @@ Apply these when editing `.css` files, in addition to universal rules.
 
 ### Anti-patterns — DON'T
 
-- Magic numbers (`padding: 37px`) → use custom properties.
-- ID selectors for styling → use class selectors.
-- Qualified selectors (`div.class`) → use class alone.
 - Deep nesting (> 3 levels) → flatten selectors.
+- ID selectors for styling → use class selectors.
+- Magic numbers (`padding: 37px`) → use custom properties.
+- Qualified selectors (`div.class`) → use class alone.
 - Using `!important` → fix specificity instead.
 
 ### Naming `[CI · Review]`
