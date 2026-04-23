@@ -10,19 +10,20 @@ Non-negotiable rules for this repo. Language-specific details are in `docs/<lang
 
 ## Quick reference
 
-| Convention        | JavaScript           | Python             | Shell                          |
-|-------------------|----------------------|--------------------|--------------------------------|
-| File naming       | `kebab-case`         | `snake_case`       | `kebab-case`                   |
-| Variable naming   | `camelCase`          | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
-| Function naming   | `camelCase`          | `snake_case`       | —                              |
-| Constant naming   | `UPPER_SNAKE_CASE`   | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
-| Class naming      | —                    | `PascalCase`       | —                              |
-| Quotes            | Single               | Double             | —                              |
-| Imports           | built-in → 3rd → int | stdlib → 3rd → int | —                              |
-| Formatter         | prettier             | ruff               | —                              |
-| Linter            | eslint               | ruff               | shellcheck                     |
-| Type checker      | —                    | mypy (strict)      | —                              |
-| Docstrings        | JSDoc                | Docstrings         | —                              |
+| Convention        | CSS                  | JavaScript           | Python             | Shell                          |
+|-------------------|----------------------|----------------------|--------------------|--------------------------------|
+| File naming       | `kebab-case`         | `kebab-case`         | `snake_case`       | `kebab-case`                   |
+| Variable naming   | —                    | `camelCase`          | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
+| Function naming   | —                    | `camelCase`          | `snake_case`       | —                              |
+| Constant naming   | —                    | `UPPER_SNAKE_CASE`   | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
+| Class naming      | `kebab-case`         | —                    | `PascalCase`       | —                              |
+| Custom properties | `--kebab-case`       | —                    | —                  | —                              |
+| Quotes            | Double               | Single               | Double             | —                              |
+| Imports           | —                    | built-in → 3rd → int | stdlib → 3rd → int | —                              |
+| Formatter         | prettier             | prettier             | ruff               | —                              |
+| Linter            | stylelint            | eslint               | ruff               | shellcheck                     |
+| Type checker      | —                    | —                    | mypy (strict)      | —                              |
+| Docstrings        | —                    | JSDoc                | Docstrings         | —                              |
 
 ---
 
@@ -141,6 +142,45 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Update `CHANGE
 
 - Categories in this order: **Added**, **Changed**, **Removed**, **Fixed** — include only what applies.
 - Entry tone rules are in the Tone section above.
+
+---
+
+## CSS rules
+
+Apply these when editing `.css` files, in addition to universal rules.
+
+### Anti-patterns — DON'T
+
+- Magic numbers (`padding: 37px`) → use custom properties.
+- ID selectors for styling → use class selectors.
+- Qualified selectors (`div.class`) → use class alone.
+- Deep nesting (> 3 levels) → flatten selectors.
+- Using `!important` → fix specificity instead.
+
+### Naming `[CI · Review]`
+
+- Files: `kebab-case`, singular noun.
+- Classes: `kebab-case`. `[Review]`
+- Custom properties: `--kebab-case`. `[Review]`
+
+### Custom Properties `[Review]`
+
+- Local → narrowest applicable scope.
+- Shared → `:root`.
+
+### Selectors `[Review]`
+
+- Prefer class selectors over element selectors.
+- No ID selectors for styling — use classes instead.
+- No qualified selectors unless specificity requires it.
+- Max 3 levels of nesting.
+- No `!important` — fix specificity instead.
+
+### Formatting `[CI]`
+
+- One declaration per line.
+- **Double quotes**.
+- `prettier` formats, `stylelint` lints — no manual overrides.
 
 ---
 
