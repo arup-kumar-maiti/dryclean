@@ -190,12 +190,12 @@ Apply these when editing `.js` files, in addition to universal rules.
 
 ### Anti-patterns — DON'T
 
-- Using `console.log` → use `process.stdout.write` / `process.stderr.write`.
-- Using ESM `import` → use `require` (CommonJS).
 - Adding a 5th parameter → wrap in an options object.
+- Double quotes (`"foo"`) → always single.
 - Empty `catch` blocks → re-throw or log.
 - Returning `undefined` from one branch and a value from another → pick one shape.
-- Double quotes (`"foo"`) → always single.
+- Using `console.log` → use `process.stdout.write` / `process.stderr.write`.
+- Using ESM `import` → use `require` (CommonJS).
 
 ### Naming `[CI · Review]`
 
@@ -253,15 +253,15 @@ Apply these when editing `.py` files, in addition to universal rules.
 
 ### Anti-patterns — DON'T
 
+- `# noqa` / `# type: ignore` → fix the code, don't suppress.
 - Adding `Args:` / `Returns:` / `Raises:` blocks to docstrings → annotations cover it.
-- Defining a custom exception outside `exception.py` → all exceptions live there.
 - Adding a 5th parameter → wrap in a dataclass / Pydantic model.
-- Splitting a long function with `# region` / `# step 1` → extract real helpers.
-- `try: ... except Exception: pass` → raise specific, don't swallow.
+- Defining a custom exception outside `exception.py` → all exceptions live there.
+- `from foo import *` or unused imports → both fail CI.
 - Returning `User | None` from one branch and `User` from another → pick one shape.
 - Single quotes (`'foo'`) → always double.
-- `from foo import *` or unused imports → both fail CI.
-- `# noqa` / `# type: ignore` → fix the code, don't suppress.
+- Splitting a long function with `# region` / `# step 1` → extract real helpers.
+- `try: ... except Exception: pass` → raise specific, don't swallow.
 
 ### Naming `[CI]`
 
@@ -361,10 +361,10 @@ Apply these when editing `.sh` files, in addition to universal rules.
 ### Anti-patterns — DON'T
 
 - Missing `set -e` → every shell file must fail on first error.
-- Using `eval` with dynamic input → command injection risk.
-- Unquoted variable expansions (`$VAR` instead of `"$VAR"`) → word splitting bugs.
 - Missing executable permission → `.sh` files must have `+x`.
 - Silent `exit 1` without a message → print what went wrong first.
+- Unquoted variable expansions (`$VAR` instead of `"$VAR"`) → word splitting bugs.
+- Using `eval` with dynamic input → command injection risk.
 
 ### Naming `[CI · Review]`
 
