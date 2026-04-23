@@ -1,0 +1,17 @@
+{
+  "plugins": ["stylelint-declaration-strict-value"],
+  "rules": {
+    "custom-property-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "declaration-no-important": true,
+    "max-nesting-depth": 3,
+    "scale-unlimited/declaration-strict-value": [
+      ["/color/", "font-size", "gap", "margin", "padding"],
+      {
+        "ignoreValues": ["0", "auto", "currentColor", "inherit", "initial", "none", "transparent", "unset"]
+      }
+    ],
+    "selector-class-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "selector-max-id": 0,
+    "selector-no-qualifying-type": true
+  }
+}

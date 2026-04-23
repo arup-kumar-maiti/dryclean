@@ -11,6 +11,7 @@
 |----------------------------|-------|----|
 | prettier (with fix)        | ✓     | —  |
 | prettier (report only)     | —     | ✓  |
+| stylelint                  | ✓     | ✓  |
 | eslint                     | ✓     | ✓  |
 | ruff lint (with fix)       | ✓     | —  |
 | ruff format (with fix)     | ✓     | —  |
