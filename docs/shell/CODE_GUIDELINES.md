@@ -31,7 +31,7 @@
 
 ## Constants [Review]
 
-- No magic strings or numbers. Use named variables.
+- No magic numbers or strings. Use named variables.
   - In comparisons (`[ "$retries" -lt 3 ]`).
   - In defaults and variable expansion. Inline strings in error messages are fine.
 

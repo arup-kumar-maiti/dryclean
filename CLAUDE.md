@@ -49,9 +49,9 @@ Before writing or modifying any source file:
 
 ### Constants `[CI · Review]`
 
-- No magic numbers or strings anywhere. Extract every literal to a named constant.
-  - In comparisons. `[CI]`
-  - In defaults and format strings. `[Review]`
+- No magic numbers or strings anywhere. Extract every literal to a named constant. `[Review]`
+  - In comparisons. `[Review]`
+  - In defaults and format strings. Inline strings in error messages are fine. `[Review]`
 - **Local** to one module → top of that module. `[CI]`
 
 ### Functions `[CI · Review]`
@@ -159,14 +159,14 @@ Apply these when editing `.css` files, in addition to universal rules.
 
 ### Naming `[CI · Review]`
 
-- Files: `kebab-case`, singular noun.
-- Classes: `kebab-case`.
-- Custom properties: `--kebab-case`.
+- Files: `kebab-case`, singular noun. `[Review]`
+- Classes: `kebab-case`. `[CI]`
+- Custom properties: `--kebab-case`. `[CI]`
 
-### Custom Properties `[CI · Review]`
+### Custom properties `[CI · Review]`
 
-- Local → narrowest applicable scope.
-- Shared → `:root`.
+- Local → narrowest applicable scope. `[Review]`
+- Shared → `:root`. `[Review]`
 
 ### Selectors `[CI · Review]`
 
@@ -199,16 +199,20 @@ Apply these when editing `.js` files, in addition to universal rules.
 
 ### Naming `[CI · Review]`
 
-- Files: `kebab-case`. Components: singular noun. Scripts: verb phrase.
-- Variables: `camelCase`.
+- Files: `kebab-case`. Components: singular noun. Scripts: verb phrase. `[Review]`
+- Variables: `camelCase`. `[CI]`
 - Constants: `UPPER_SNAKE_CASE`. `[Review]`
-- Functions: `camelCase`, verb or verb phrase.
+- Functions: `camelCase`, verb or verb phrase. `[Review]`
 
 ### Imports `[CI]`
 
 - Order: **built-in → third-party → internal**.
 - `require` only, no ESM `import`.
 - No duplicate imports. No unused imports.
+
+### Constants `[CI · Review]`
+
+- In comparisons. `[CI]`
 
 ### Functions `[CI · Review]`
 
@@ -265,11 +269,11 @@ Apply these when editing `.py` files, in addition to universal rules.
 
 ### Naming `[CI · Review]`
 
-- Files: `snake_case`, singular noun.
-- Variables: `snake_case`.
-- Constants: `UPPER_SNAKE_CASE`.
-- Classes: `PascalCase`, noun or noun phrase.
-- Functions: `snake_case`, verb or verb phrase.
+- Files: `snake_case`, singular noun. `[Review]`
+- Variables: `snake_case`. `[CI]`
+- Constants: `UPPER_SNAKE_CASE`. `[CI]`
+- Classes: `PascalCase`, noun or noun phrase. `[Review]`
+- Functions: `snake_case`, verb or verb phrase. `[Review]`
 
 ### Imports `[CI]`
 
@@ -278,7 +282,7 @@ Apply these when editing `.py` files, in addition to universal rules.
 
 ### Constants `[CI · Review]`
 
-- Shared constants → `constant.py`.
+- Shared constants → `constant.py`. `[Review]`
 
 ### Types `[CI · Review]`
 
@@ -368,7 +372,7 @@ Apply these when editing `.sh` files, in addition to universal rules.
 
 ### Naming `[CI · Review]`
 
-- Files: `kebab-case`, verb or verb phrase.
+- Files: `kebab-case`, verb or verb phrase. `[Review]`
 - Local variables: `lower_snake_case`. `[Review]`
 - Exported/environment variables: `UPPER_SNAKE_CASE`. `[Review]`
 
@@ -379,8 +383,7 @@ Apply these when editing `.sh` files, in addition to universal rules.
 
 ### Constants `[Review]`
 
-- No magic strings or numbers. Use named variables.
-- In comparisons and defaults. Inline strings in error messages are fine.
+- No magic numbers or strings. Use named variables.
 
 ### Error handling `[CI · Review]`
 
