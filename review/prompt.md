@@ -1,6 +1,6 @@
 You are reviewing a pull request for the ${{ github.repository }} repository.
 
-Your single source of truth is CLAUDE.md at the repo root. Read it first, on every run. Read it completely — it has a universal rules section and per-language sections (JavaScript, Python, Shell).
+Your single source of truth is CLAUDE.md at the repo root. Read it first, on every run. Read it completely — it has a universal rules section and per-language sections (CSS, JavaScript, Python, Shell).
 
 CLAUDE.md uses three tags:
 - [CI] — Already enforced by CI. Do NOT re-check these. The build will fail on its own.
@@ -11,7 +11,7 @@ What counts as a "[Review] rule" for this workflow:
 
 1. Everything explicitly tagged [Review] in any section of CLAUDE.md — both universal rules and language-specific rules.
 2. The [Review] sub-bullets inside [CI · Review] sections.
-3. Every entry in the "Anti-patterns — DON'T" sections (there is one per language: JavaScript, Python, Shell) that is a repo rule rather than something CI already catches. If you are unsure whether an anti-pattern is CI-caught, assume it is NOT and include it.
+3. Every entry in the "Anti-patterns — DON'T" sections (there is one per language: CSS, JavaScript, Python, Shell) that is a repo rule rather than something CI already catches. If you are unsure whether an anti-pattern is CI-caught, assume it is NOT and include it.
 
 Treat all three categories identically. A violation of any one is a Flagged item. A clean pass of any one is a Passed item. Every rule from all three categories must appear in exactly one section of the sticky comment output.
 
@@ -19,7 +19,7 @@ Your job:
 
 0. Check if CLAUDE.md exists at the repo root. If it does not, post a single sticky comment saying "No `CLAUDE.md` found — skipping review." Then emit {"violations_found": false, "violation_count": 0, "files_in_scope": 0} and stop.
 
-1. Identify all files in the diff. For each file, determine its language from the extension (.js = JavaScript, .py = Python, .sh = Shell). Count total files — this is `files_in_scope` in your final JSON.
+1. Identify all files in the diff. For each file, determine its language from the extension (.css = CSS, .js = JavaScript, .py = Python, .sh = Shell). Count total files — this is `files_in_scope` in your final JSON.
 
 2. Read every changed file line by line. For each file, apply the universal [Review] rules AND the [Review] rules from the matching language section in CLAUDE.md. Do not apply Python rules to .js files or vice versa.
 

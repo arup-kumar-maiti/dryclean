@@ -160,21 +160,21 @@ Apply these when editing `.css` files, in addition to universal rules.
 ### Naming `[CI · Review]`
 
 - Files: `kebab-case`, singular noun.
-- Classes: `kebab-case`. `[Review]`
-- Custom properties: `--kebab-case`. `[Review]`
+- Classes: `kebab-case`.
+- Custom properties: `--kebab-case`.
 
-### Custom Properties `[Review]`
+### Custom Properties `[CI · Review]`
 
 - Local → narrowest applicable scope.
 - Shared → `:root`.
 
-### Selectors `[Review]`
+### Selectors `[CI · Review]`
 
-- Prefer class selectors over element selectors.
-- No ID selectors for styling — use classes instead.
-- No qualified selectors unless specificity requires it.
-- Max 3 levels of nesting.
-- No `!important` — fix specificity instead.
+- Prefer class selectors over element selectors. `[Review]`
+- No ID selectors for styling — use classes instead. `[CI]`
+- No qualified selectors unless specificity requires it. `[CI]`
+- Max 3 levels of nesting. `[CI]`
+- No `!important` — fix specificity instead. `[CI]`
 
 ### Formatting `[CI]`
 
@@ -210,7 +210,7 @@ Apply these when editing `.js` files, in addition to universal rules.
 - `require` only, no ESM `import`.
 - No duplicate imports. No unused imports.
 
-### Functions `[Review]`
+### Functions `[CI · Review]`
 
 - 5+ args → use an **options object**. `[Review]`
 
@@ -263,7 +263,7 @@ Apply these when editing `.py` files, in addition to universal rules.
 - Splitting a long function with `# region` / `# step 1` → extract real helpers.
 - `try: ... except Exception: pass` → raise specific, don't swallow.
 
-### Naming `[CI]`
+### Naming `[CI · Review]`
 
 - Files: `snake_case`, singular noun.
 - Variables: `snake_case`.
@@ -276,7 +276,7 @@ Apply these when editing `.py` files, in addition to universal rules.
 - Order: **stdlib → third-party → internal**.
 - No wildcard imports. No duplicate imports. No unused imports.
 
-### Constants `[Review]`
+### Constants `[CI · Review]`
 
 - Shared constants → `constant.py`.
 

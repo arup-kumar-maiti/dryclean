@@ -22,6 +22,7 @@ _TEMPLATE_NAMES = [
     _PRE_COMMIT_LOCAL,
     "prettierrc.json",
     "ruff.toml",
+    "stylelintrc.json",
     "taplo.toml",
 ]
 

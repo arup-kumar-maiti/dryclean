@@ -14,8 +14,8 @@
 
 - Files: `kebab-case`. **[CI]**
   - Singular noun. **[Review]**
-- Classes: `kebab-case`. **[Review]**
-- Custom properties: `--kebab-case`. **[Review]**
+- Classes: `kebab-case`. **[CI]**
+- Custom properties: `--kebab-case`. **[CI]**
 - Full words, no abbreviations except ones more recognizable than the full form (e.g. `id`, `img`, `nav`, `url`) — never lazy shorthand (e.g. `btn`, `clr`, `hdr`, `nav-pd`). **[Review]**
 - Unclear name → rename first. **[Review]**
 
@@ -31,13 +31,13 @@
 
 ---
 
-## Selectors [Review]
+## Selectors [CI · Review]
 
-- Prefer class selectors over element selectors.
-- No ID selectors for styling — use classes instead.
-- No qualified selectors (`div.class`) unless specificity requires it.
-- Max 3 levels of nesting.
-- No `!important` — fix specificity instead.
+- Prefer class selectors over element selectors. **[Review]**
+- No ID selectors for styling — use classes instead. **[CI]**
+- No qualified selectors (`div.class`) unless specificity requires it. **[CI]**
+- Max 3 levels of nesting. **[CI]**
+- No `!important` — fix specificity instead. **[CI]**
 
 ---
 

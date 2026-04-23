@@ -3,8 +3,16 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        types_or: [javascript, json, yaml]
+        types_or: [css, javascript, json, yaml]
         args: [--config, "/tmp/dryclean/prettierrc.json"]
+
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v16.19.1
+    hooks:
+      - id: stylelint
+        args: [--config, "/tmp/dryclean/stylelintrc.json"]
+        additional_dependencies:
+          - stylelint-declaration-strict-value
 
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v10.2.1
@@ -47,6 +55,31 @@ repos:
 
   - repo: local
     hooks:
+      - id: check-comment-density-css
+        name: check comment density (css)
+        entry: dryclean check css check_comment_density
+        language: system
+        types: [css]
+      - id: check-comment-period-css
+        name: check comment period (css)
+        entry: dryclean check css check_comment_period
+        language: system
+        types: [css]
+      - id: check-inline-comments-css
+        name: check inline comments (css)
+        entry: dryclean check css check_inline_comments
+        language: system
+        types: [css]
+      - id: check-kebab-case-filename-css
+        name: check kebab case filename (css)
+        entry: dryclean check css check_kebab_case_filename
+        language: system
+        types: [css]
+      - id: check-section-dividers-css
+        name: check section dividers (css)
+        entry: dryclean check css check_section_dividers
+        language: system
+        types: [css]
       - id: check-comment-density-js
         name: check comment density (javascript)
         entry: dryclean check javascript check_comment_density
