@@ -3,6 +3,30 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-04-23
+
+### Added
+
+- HTML column in CLAUDE.md quick reference table and HTML rules section.
+- HTML in PR review prompt language detection.
+- HTML language support with code and commenting guidelines.
+- HTML quality check scripts (comment density, comment period, data attribute naming, deprecated elements, inline comments, kebab-case filename, section dividers).
+- HTMLHint config with rules for alt text, double quotes, inline scripts, and inline styles.
+- HTMLHint integration with Prettier for HTML formatting and linting.
+- JavaScript Constants section in CLAUDE.md for CI comparison override.
+- Shell section dividers check script.
+
+### Changed
+
+- Add explicit CI and Review tags to all bullets in mixed CLAUDE.md sections.
+- Add inline error message exception to universal Constants rule.
+- Downgrade universal and Python magic numbers comparison tag from CI to Review.
+- Replace third-party mirror repos with local node hooks for Stylelint and HTMLHint.
+
+### Fixed
+
+- Fix naming and docstring inconsistencies across all check scripts.
+
 ## [1.1.0] - 2026-04-23
 
 ### Added
