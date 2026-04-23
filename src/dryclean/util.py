@@ -84,6 +84,7 @@ def _run_streamed(
         text=True,
     )
     assert process.stdout is not None
+    assert options.skip_lines_containing is not None
     for line in process.stdout:
         if options.skip_lines_containing not in line:
             sys.stdout.write(line)
