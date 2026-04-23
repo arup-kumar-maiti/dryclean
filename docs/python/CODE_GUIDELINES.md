@@ -15,12 +15,12 @@
 - Files: `snake_case`. **[CI]**
   - Singular noun. **[Review]**
 - Variables: `snake_case`. **[CI]**
-  - Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) or external API field names — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
 - Constants: `UPPER_SNAKE_CASE`. **[CI]**
 - Classes: `PascalCase`. **[CI]**
   - Noun or noun phrase. **[Review]**
 - Functions: `snake_case`. **[CI]**
   - Verb or verb phrase. **[Review]**
+- Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) or external API field names — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
 - Unclear name → rename first. **[Review]**
 
 ---

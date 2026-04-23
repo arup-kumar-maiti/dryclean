@@ -17,7 +17,7 @@
 - Variables:
   - Local: `lower_snake_case`. **[Review]**
   - Exported/environment: `UPPER_SNAKE_CASE`. **[Review]**
-  - Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
+- Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
 - Unclear name → rename first. **[Review]**
 
 ---

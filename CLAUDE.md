@@ -113,6 +113,12 @@ Comment format:
 - Lists with no natural order → alphabetical.
 - Imports have their own rule (see language sections) — that takes precedence.
 
+**Code guidelines** (sections, bullets, sub-bullets) → natural reading order, not alphabetical. Order by what you encounter or do first when reading or writing a file.
+
+```
+Sections: Stack → Naming → Imports → Constants → … → Comments → Formatting
+```
+
 **Functions in a module** → callees before callers (leaf-first), grouped by call chain:
 
 ```

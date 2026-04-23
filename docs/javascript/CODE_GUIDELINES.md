@@ -16,10 +16,10 @@
   - Components/modules: singular noun. **[Review]**
   - Scripts/CLIs: verb or verb phrase. **[Review]**
 - Variables: `camelCase`. **[CI]**
-  - Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) or external API field names — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
 - Constants: `UPPER_SNAKE_CASE`. **[Review]**
 - Functions: `camelCase`. **[CI]**
   - Verb or verb phrase. **[Review]**
+- Full words, no abbreviations except ones more recognizable than the full form (e.g. `api`, `db`, `id`, `ip`, `url`) or external API field names — never lazy shorthand (e.g. `btn`, `cfg`, `ctx`, `err`, `msg`, `req`, `res`, `usr`). **[Review]**
 - Unclear name → rename first. **[Review]**
 
 ---
