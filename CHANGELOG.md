@@ -3,6 +3,25 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-04-23
+
+### Added
+
+- Code guidelines natural reading order rule in CLAUDE.md ordering section.
+- CSS column in CLAUDE.md quick reference table and CSS rules section.
+- CSS in PR review prompt language detection.
+- CSS language support with code and commenting guidelines.
+- CSS quality check scripts (comment density, comment period, inline comments, kebab-case filename, section dividers).
+- Stylelint config with rules for class naming, custom property naming, declaration importance, nesting depth, ID selectors, qualified selectors, and strict value enforcement.
+- Stylelint integration with Prettier for CSS formatting and linting.
+
+### Changed
+
+- Align CLAUDE.md section header tags with code guidelines across all languages.
+- Extend Prettier to format CSS files.
+- Promote universal naming rules to top-level bullets in all language code guidelines.
+- Sort anti-patterns alphabetically for all languages in CLAUDE.md.
+
 ## [1.0.5] - 2026-04-22
 
 ### Fixed
