@@ -6,20 +6,6 @@ repos:
         types_or: [css, html, javascript, json, yaml]
         args: [--config, "/tmp/dryclean/prettierrc.json"]
 
-  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v16.19.1
-    hooks:
-      - id: stylelint
-        args: [--config, "/tmp/dryclean/stylelintrc.json"]
-        additional_dependencies:
-          - stylelint-declaration-strict-value
-
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.2
-    hooks:
-      - id: htmlhint
-        args: [--config, "/tmp/dryclean/htmlhintrc.json"]
-
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v10.2.1
     hooks:
@@ -61,6 +47,20 @@ repos:
 
   - repo: local
     hooks:
+      - id: stylelint
+        name: stylelint
+        entry: stylelint
+        language: node
+        types: [css]
+        args: [--config, "/tmp/dryclean/stylelintrc.json"]
+        additional_dependencies: ["stylelint", "stylelint-declaration-strict-value"]
+      - id: htmlhint
+        name: htmlhint
+        entry: htmlhint
+        language: node
+        types: [html]
+        args: [--config, "/tmp/dryclean/htmlhintrc.json"]
+        additional_dependencies: ["htmlhint"]
       - id: check-comment-density-css
         name: check comment density (css)
         entry: dryclean check css check_comment_density
