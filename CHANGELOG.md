@@ -3,6 +3,13 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-04-23
+
+### Added
+
+- Output filter to hide skipped hooks from pre-commit terminal output.
+- Streamed line filter capability in run_command utility.
+
 ## [1.2.0] - 2026-04-23
 
 ### Added
