@@ -15,6 +15,7 @@ _CONFIG_DIR = Path("/tmp/dryclean")
 _DRYCLEAN_ENTRY_PREFIX = "entry: dryclean "
 _PRE_COMMIT_CI = "pre-commit-ci.yaml"
 _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
+_SKIPPED_MARKER = "Skipped"
 _TEMPLATE_NAMES = [
     "eslintrc.json",
     "htmlhintrc.json",
@@ -44,7 +45,9 @@ def run_checks(directory: Path, ci: bool = False) -> bool:
     try:
         result = run_command(
             [PRE_COMMIT_BIN, "run", "--all-files", "--config", str(config_path)],
-            CommandOptions(cwd=directory, stream=True),
+            CommandOptions(
+                cwd=directory, stream=True, skip_lines_containing=_SKIPPED_MARKER
+            ),
         )
         return result.returncode == 0
     except FileNotFoundError:

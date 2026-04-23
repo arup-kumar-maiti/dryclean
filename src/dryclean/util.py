@@ -1,6 +1,7 @@
 """Shared utilities."""
 
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -17,8 +18,9 @@ class CommandOptions:
 
     cwd: Path | None = None
     input: str | None = None
-    stream: bool = False
     silent: bool = False
+    skip_lines_containing: str | None = None
+    stream: bool = False
 
 
 _console = Console()
@@ -71,24 +73,48 @@ def write_file(path: Path, content: str, overwrite: bool = False) -> None:
     path.write_text(content, encoding="utf-8")
 
 
-def run_command(
-    command: list[str],
-    options: CommandOptions | None = None,
+def _run_streamed(
+    command: list[str], options: CommandOptions
 ) -> subprocess.CompletedProcess[str]:
-    """Run a command and optionally report errors to stderr."""
-    opts = options or CommandOptions()
+    process = subprocess.Popen(
+        command,
+        cwd=options.cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    for line in process.stdout:
+        if options.skip_lines_containing not in line:
+            sys.stdout.write(line)
+            sys.stdout.flush()
+    process.wait()
+    return subprocess.CompletedProcess(command, process.returncode)
+
+
+def _run_captured(
+    command: list[str], options: CommandOptions
+) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         command,
-        cwd=opts.cwd,
-        input=opts.input,
-        capture_output=not opts.stream,
+        cwd=options.cwd,
+        input=options.input,
+        capture_output=not options.stream,
         text=True,
     )
     if (
-        not opts.silent
-        and not opts.stream
+        not options.silent
+        and not options.stream
         and result.returncode != 0
         and result.stderr.strip()
     ):
         error(result.stderr.strip())
     return result
+
+
+def run_command(
+    command: list[str], options: CommandOptions = CommandOptions()
+) -> subprocess.CompletedProcess[str]:
+    """Run a command and optionally filter output or report errors."""
+    if options.stream and options.skip_lines_containing:
+        return _run_streamed(command, options)
+    return _run_captured(command, options)
