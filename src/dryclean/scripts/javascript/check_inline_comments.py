@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 _COMMENT_PREFIX = "//"
-_INLINE_COMMENT = re.compile(r"^[^'\"]*[^:/]//[^/]")
+_INLINE_COMMENT_PATTERN = re.compile(r"^[^'\"]*[^:/]//[^/]")
 _URL_PATTERN = re.compile(r"https?://")
 
 
@@ -25,7 +25,7 @@ class _FileResult:
 def _has_inline_comment(line: str) -> bool:
     if _URL_PATTERN.search(line):
         return False
-    return bool(_INLINE_COMMENT.search(line))
+    return bool(_INLINE_COMMENT_PATTERN.search(line))
 
 
 def _analyze_file(path: Path) -> list[_FileResult]:

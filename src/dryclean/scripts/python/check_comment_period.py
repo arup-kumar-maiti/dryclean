@@ -62,10 +62,12 @@ def _collect_standalone_comments(path: Path) -> list[tokenize.TokenInfo]:
     return standalone
 
 
-def _continues_block(previous: tokenize.TokenInfo, current: tokenize.TokenInfo) -> bool:
+def _continues_block(
+    previous_token: tokenize.TokenInfo, current_token: tokenize.TokenInfo
+) -> bool:
     return (
-        previous.start[0] + 1 == current.start[0]
-        and previous.start[1] == current.start[1]
+        previous_token.start[0] + 1 == current_token.start[0]
+        and previous_token.start[1] == current_token.start[1]
     )
 
 

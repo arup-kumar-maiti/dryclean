@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 _COMMENT_PREFIX = "#"
-_DIRECTIVE_PATTERNS = re.compile(r"^\s*(?:shellcheck|noqa|type:|pragma:)")
+_DIRECTIVE_PATTERN = re.compile(r"^\s*(?:shellcheck|noqa|type:|pragma:)")
 _PERIOD = "."
 _SHEBANG_PREFIX = "#!"
 _SINGLE_LINE_BLOCK_SIZE = 1
@@ -26,7 +26,7 @@ class _FileResult:
 
 
 def _is_directive(comment: str) -> bool:
-    return bool(_DIRECTIVE_PATTERNS.match(comment))
+    return bool(_DIRECTIVE_PATTERN.match(comment))
 
 
 def _collect_standalone_comments(path: Path) -> list[tuple[int, int, str]]:

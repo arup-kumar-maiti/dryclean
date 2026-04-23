@@ -1,5 +1,5 @@
 """
-Check that section divider comments do not appear inside Python function bodies.
+Check that no Python function or method contains section divider comments.
 
 usage:
   python scripts/python/check_section_dividers.py [FILE ...]
@@ -34,8 +34,8 @@ class _FileResult:
     line: int
 
 
-def _is_line_inside_any(line: int, ranges: list[_FunctionRange]) -> bool:
-    return any(r.start <= line <= r.end for r in ranges)
+def _is_line_inside_any(line_num: int, ranges: list[_FunctionRange]) -> bool:
+    return any(entry.start <= line_num <= entry.end for entry in ranges)
 
 
 def _find_comments_in_ranges(

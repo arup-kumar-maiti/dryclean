@@ -1,5 +1,5 @@
 """
-Check that section divider comments do not appear inside JavaScript functions.
+Check that no JavaScript function contains section divider comments.
 
 usage:
   python scripts/javascript/check_section_dividers.py [FILE ...]
@@ -57,8 +57,8 @@ def _find_function_ranges(lines: list[str]) -> list[_FunctionRange]:
     return ranges
 
 
-def _is_divider(comment_body: str) -> bool:
-    return any(pattern.match(comment_body) for pattern in _DIVIDER_PATTERNS)
+def _is_divider(comment: str) -> bool:
+    return any(pattern.match(comment) for pattern in _DIVIDER_PATTERNS)
 
 
 def _analyze_file(path: Path) -> list[_FileResult]:
@@ -72,10 +72,10 @@ def _analyze_file(path: Path) -> list[_FileResult]:
         stripped = line.strip()
         if not stripped.startswith(_COMMENT_PREFIX):
             continue
-        comment_body = stripped[len(_COMMENT_PREFIX) :]
-        if not any(r.start <= line_num <= r.end for r in ranges):
+        comment = stripped[len(_COMMENT_PREFIX) :]
+        if not any(entry.start <= line_num <= entry.end for entry in ranges):
             continue
-        if _is_divider(comment_body):
+        if _is_divider(comment):
             results.append(_FileResult(path=path, line=line_num))
 
     return results

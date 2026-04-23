@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 _COMMENT_PREFIX = "#"
-_INLINE_COMMENT = re.compile(r"^[^#'\"]*[^\s].*\s#\s")
+_INLINE_COMMENT_PATTERN = re.compile(r"^[^#'\"]*[^\s].*\s#\s")
 
 
 @dataclass
@@ -22,7 +22,7 @@ class _FileResult:
 
 
 def _has_inline_comment(line: str) -> bool:
-    return bool(_INLINE_COMMENT.search(line))
+    return bool(_INLINE_COMMENT_PATTERN.search(line))
 
 
 def _analyze_file(path: Path) -> list[_FileResult]:
