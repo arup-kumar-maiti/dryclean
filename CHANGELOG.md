@@ -11,8 +11,8 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - HTML in PR review prompt language detection.
 - HTML language support with code and commenting guidelines.
 - HTML quality check scripts (comment density, comment period, data attribute naming, deprecated elements, inline comments, kebab-case filename, section dividers).
-- HTMLHint integration with Prettier for HTML formatting and linting.
 - HTMLHint config with rules for alt text, double quotes, inline scripts, and inline styles.
+- HTMLHint integration with Prettier for HTML formatting and linting.
 - JavaScript Constants section in CLAUDE.md for CI comparison override.
 - Shell section dividers check script.
 
