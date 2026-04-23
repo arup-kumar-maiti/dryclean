@@ -10,20 +10,21 @@ Non-negotiable rules for this repo. Language-specific details are in `docs/<lang
 
 ## Quick reference
 
-| Convention        | CSS                  | JavaScript           | Python             | Shell                          |
-|-------------------|----------------------|----------------------|--------------------|--------------------------------|
-| File naming       | `kebab-case`         | `kebab-case`         | `snake_case`       | `kebab-case`                   |
-| Variable naming   | —                    | `camelCase`          | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
-| Function naming   | —                    | `camelCase`          | `snake_case`       | —                              |
-| Constant naming   | —                    | `UPPER_SNAKE_CASE`   | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
-| Class naming      | `kebab-case`         | —                    | `PascalCase`       | —                              |
-| Custom properties | `--kebab-case`       | —                    | —                  | —                              |
-| Quotes            | Double               | Single               | Double             | —                              |
-| Imports           | —                    | built-in → 3rd → int | stdlib → 3rd → int | —                              |
-| Formatter         | prettier             | prettier             | ruff               | —                              |
-| Linter            | stylelint            | eslint               | ruff               | shellcheck                     |
-| Type checker      | —                    | —                    | mypy (strict)      | —                              |
-| Docstrings        | —                    | JSDoc                | Docstrings         | —                              |
+| Convention        | CSS                  | HTML               | JavaScript           | Python             | Shell                          |
+|-------------------|----------------------|--------------------|----------------------|--------------------|--------------------------------|
+| File naming       | `kebab-case`         | `kebab-case`       | `kebab-case`         | `snake_case`       | `kebab-case`                   |
+| Variable naming   | —                    | —                  | `camelCase`          | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
+| Function naming   | —                    | —                  | `camelCase`          | `snake_case`       | —                              |
+| Constant naming   | —                    | —                  | `UPPER_SNAKE_CASE`   | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
+| Class naming      | `kebab-case`         | —                  | —                    | `PascalCase`       | —                              |
+| Custom properties | `--kebab-case`       | —                  | —                    | —                  | —                              |
+| Data attributes   | —                    | `data-kebab-case`  | —                    | —                  | —                              |
+| Quotes            | Double               | Double             | Single               | Double             | —                              |
+| Imports           | —                    | —                  | built-in → 3rd → int | stdlib → 3rd → int | —                              |
+| Formatter         | prettier             | prettier           | prettier             | ruff               | —                              |
+| Linter            | stylelint            | htmlhint           | eslint               | ruff               | shellcheck                     |
+| Type checker      | —                    | —                  | —                    | mypy (strict)      | —                              |
+| Docstrings        | —                    | —                  | JSDoc                | Docstrings         | —                              |
 
 ---
 
@@ -181,6 +182,40 @@ Apply these when editing `.css` files, in addition to universal rules.
 - One declaration per line.
 - **Double quotes**.
 - `prettier` formats, `stylelint` lints — no manual overrides.
+
+---
+
+## HTML rules
+
+Apply these when editing `.html` files, in addition to universal rules.
+
+### Anti-patterns — DON'T
+
+- Deprecated elements (`<center>`, `<font>`) → use CSS.
+- `disabled="true"` → just `disabled` (boolean attribute).
+- Generic `<div>` and `<span>` for everything → use semantic elements.
+- Inline event handlers (`onclick`, `onload`) → use JavaScript event listeners.
+- Inline styles → use CSS.
+- Missing `alt` on `<img>` → always provide alt text.
+
+### Naming `[CI · Review]`
+
+- Files: `kebab-case`, singular noun. `[Review]`
+- Data attributes: `data-kebab-case`. `[CI]`
+
+### Elements `[CI · Review]`
+
+- Semantic elements over generic `<div>` and `<span>`. `[Review]`
+- No deprecated elements. `[CI]`
+- Alt text on all `<img>` elements. `[CI]`
+- No inline styles. `[CI]`
+- No inline event handlers. `[CI]`
+
+### Formatting `[CI]`
+
+- Boolean attributes: no value (`disabled`, not `disabled="true"`).
+- Double quotes.
+- `prettier` formats, `htmlhint` lints — no manual overrides.
 
 ---
 
