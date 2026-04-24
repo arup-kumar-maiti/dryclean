@@ -1,0 +1,45 @@
+'use strict';
+
+const ERROR = 'error';
+const IGNORED_NUMERIC_LITERALS = [0, 1];
+const IMPORT_GROUPS = ['builtin', 'external', 'internal'];
+const IMPORT_PLUGIN = require('eslint-plugin-import');
+const IMPORT_SELECTOR = 'ImportDeclaration';
+const MAX_PARAMS = 4;
+const SOURCE_TYPE = 'commonjs';
+
+module.exports = [
+  {
+    languageOptions: {
+      sourceType: SOURCE_TYPE,
+    },
+    plugins: {
+      import: IMPORT_PLUGIN,
+    },
+    rules: {
+      camelcase: [ERROR, { properties: 'never' }],
+      'consistent-return': ERROR,
+      'import/no-duplicates': ERROR,
+      'import/order': [
+        ERROR,
+        {
+          groups: IMPORT_GROUPS,
+          'newlines-between': 'always',
+        },
+      ],
+      'max-params': [ERROR, { max: MAX_PARAMS }],
+      'no-console': ERROR,
+      'no-empty': [ERROR, { allowEmptyCatch: false }],
+      'no-magic-numbers': [ERROR, { ignore: IGNORED_NUMERIC_LITERALS, enforceConst: true }],
+      'no-restricted-syntax': [
+        ERROR,
+        {
+          selector: IMPORT_SELECTOR,
+          message: 'Use require() instead of import. This is a CommonJS project.',
+        },
+      ],
+      'no-unused-vars': [ERROR, { vars: 'all', args: 'after-used' }],
+      quotes: [ERROR, 'single', { avoidEscape: true }],
+    },
+  },
+];

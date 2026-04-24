@@ -25,7 +25,7 @@ _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
 _SKIP_ENV_VAR = "SKIP"
 _SKIPPED_MARKER = "Skipped"
 _TEMPLATE_NAMES = [
-    "eslintrc.json",
+    "eslint.config.cjs",
     "htmlhintrc.json",
     "mypy.ini",
     _PRE_COMMIT_CI,
