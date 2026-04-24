@@ -3,6 +3,18 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.4] - 2026-04-24
+
+### Added
+
+- Auto-fix via `--fix` for ESLint and Stylelint in local pre-commit hooks.
+
+### Changed
+
+- Downgrade Prettier from v4 alpha to v3.8.3 stable and replace archived `mirrors-prettier` with local hook.
+- Restructure hook ordering: gate checks, formatters, data format linters, language linters, type checkers, custom checks.
+- Split `pre-commit-hooks` repo blocks by stage for clearer execution order.
+
 ## [1.3.3] - 2026-04-24
 
 ### Fixed
