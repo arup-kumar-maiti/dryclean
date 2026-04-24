@@ -1,10 +1,12 @@
 repos:
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
     hooks:
-      - id: prettier
-        types_or: [css, html, javascript, json, yaml]
-        args: [--config, "/tmp/dryclean/prettierrc.json"]
+      - id: no-commit-to-branch
+        args: [--branch, main]
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
 
   - repo: https://github.com/ComPWA/taplo-pre-commit
     rev: v0.9.3
@@ -12,11 +14,62 @@ repos:
       - id: taplo-format
         args: [--config, "/tmp/dryclean/taplo.toml"]
 
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: prettier --write --ignore-unknown
+        language: node
+        types_or: [css, html, javascript, json, yaml]
+        args: [--config, "/tmp/dryclean/prettierrc.json"]
+        additional_dependencies: ["prettier@3.8.3"]
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.11
     hooks:
       - id: ruff-format
         args: [--config, "/tmp/dryclean/ruff.toml"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+
+  - repo: local
+    hooks:
+      - id: stylelint
+        name: stylelint
+        entry: sh -c 'exec stylelint --fix --config-basedir "$(dirname "$(command -v stylelint)")/../lib" "$@"' --
+        language: node
+        types: [css]
+        args: [--config, "/tmp/dryclean/stylelintrc.json"]
+        additional_dependencies: ["stylelint", "stylelint-declaration-strict-value"]
+
+  - repo: local
+    hooks:
+      - id: htmlhint
+        name: htmlhint
+        entry: htmlhint
+        language: node
+        types: [html]
+        args: [--config, "/tmp/dryclean/htmlhintrc.json"]
+        additional_dependencies: ["htmlhint"]
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: sh -c 'NODE_PATH="$(dirname "$(command -v eslint)")/../lib/node_modules" exec eslint --fix "$@"' --
+        language: node
+        types: [javascript]
+        args: [--config, "/tmp/dryclean/eslint.config.cjs"]
+        additional_dependencies: ["eslint", "eslint-plugin-import"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.11
+    hooks:
       - id: ruff-check
         args: [--fix, --config, "/tmp/dryclean/ruff.toml"]
 
@@ -25,41 +78,8 @@ repos:
     hooks:
       - id: shellcheck
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-json
-      - id: check-toml
-      - id: check-yaml
-      - id: check-merge-conflict
-      - id: no-commit-to-branch
-        args: [--branch, main]
-
   - repo: local
     hooks:
-      - id: stylelint
-        name: stylelint
-        entry: sh -c 'exec stylelint --config-basedir "$(dirname "$(command -v stylelint)")/../lib" "$@"' --
-        language: node
-        types: [css]
-        args: [--config, "/tmp/dryclean/stylelintrc.json"]
-        additional_dependencies: ["stylelint", "stylelint-declaration-strict-value"]
-      - id: htmlhint
-        name: htmlhint
-        entry: htmlhint
-        language: node
-        types: [html]
-        args: [--config, "/tmp/dryclean/htmlhintrc.json"]
-        additional_dependencies: ["htmlhint"]
-      - id: eslint
-        name: eslint
-        entry: sh -c 'NODE_PATH="$(dirname "$(command -v eslint)")/../lib/node_modules" exec eslint "$@"' --
-        language: node
-        types: [javascript]
-        args: [--config, "/tmp/dryclean/eslint.config.cjs"]
-        additional_dependencies: ["eslint", "eslint-plugin-import"]
       - id: check-comment-density-css
         name: check comment density (css)
         entry: dryclean check css check_comment_density
@@ -85,6 +105,9 @@ repos:
         entry: dryclean check css check_section_dividers
         language: system
         types: [css]
+
+  - repo: local
+    hooks:
       - id: check-comment-density-html
         name: check comment density (html)
         entry: dryclean check html check_comment_density
@@ -120,6 +143,9 @@ repos:
         entry: dryclean check html check_section_dividers
         language: system
         types: [html]
+
+  - repo: local
+    hooks:
       - id: check-comment-density-js
         name: check comment density (javascript)
         entry: dryclean check javascript check_comment_density
@@ -155,6 +181,9 @@ repos:
         entry: dryclean check javascript check_section_dividers
         language: system
         types: [javascript]
+
+  - repo: local
+    hooks:
       - id: check-argument-count-py
         name: check argument count (python)
         entry: dryclean check python check_argument_count
@@ -211,6 +240,9 @@ repos:
         language: system
         types: [python]
         exclude: '(^|/)__[a-z]+__\.py$'
+
+  - repo: local
+    hooks:
       - id: check-comment-density-sh
         name: check comment density (shell)
         entry: dryclean check shell check_comment_density

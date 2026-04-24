@@ -20,7 +20,7 @@ jobs:
       - name: Run quality checks
         uses: ./ci
         with:
-          install_from_source: "true"
+          install_from_source: 'true'
       - name: Check CLAUDE.md template drift
         shell: bash
         run: |
