@@ -2,6 +2,11 @@
 
 Multi-language code quality toolkit. One install. Every supported file — checked.
 
+## Prerequisites
+
+- Python 3.11+
+- Node.js 18+ (for CSS, HTML, and JavaScript support)
+
 ## Quick Start
 
 ```bash
