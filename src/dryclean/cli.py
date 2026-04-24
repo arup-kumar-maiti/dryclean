@@ -1,4 +1,4 @@
-"""dryclean CLI entry point."""
+"""Define the dryclean CLI entry point."""
 
 from __future__ import annotations
 
