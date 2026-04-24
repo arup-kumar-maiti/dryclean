@@ -1,6 +1,9 @@
 """Run quality checks via pre-commit with dryclean configs."""
 
+import os
 from pathlib import Path
+
+import yaml
 
 from dryclean.constant import DRYCLEAN_BIN, PRE_COMMIT_BIN
 from dryclean.util import (
@@ -12,9 +15,11 @@ from dryclean.util import (
 )
 
 _CONFIG_DIR = Path("/tmp/dryclean")
+_CONFIG_FILE = "dryclean.yml"
 _DRYCLEAN_ENTRY_PREFIX = "entry: dryclean "
 _PRE_COMMIT_CI = "pre-commit-ci.yaml"
 _PRE_COMMIT_LOCAL = "pre-commit-local.yaml"
+_SKIP_ENV_VAR = "SKIP"
 _SKIPPED_MARKER = "Skipped"
 _TEMPLATE_NAMES = [
     "eslintrc.json",
@@ -37,8 +42,29 @@ def _ensure_configs() -> None:
         write_file(_CONFIG_DIR / name, content, overwrite=True)
 
 
-def run_checks(directory: Path, ci: bool = False) -> bool:
-    """Run all quality checks."""
+def _load_skip_list(directory: Path) -> list[str]:
+    config_path = directory / _CONFIG_FILE
+    if not config_path.exists():
+        return []
+    skip = (yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}).get("skip")
+    return skip if isinstance(skip, list) else []
+
+
+def _build_skip_env(
+    directory: Path, cli_skip: list[str] | None = None
+) -> dict[str, str]:
+    skip_list = _load_skip_list(directory) + (cli_skip or [])
+    return (
+        {**os.environ, _SKIP_ENV_VAR: ",".join(skip_list)}
+        if skip_list
+        else dict(os.environ)
+    )
+
+
+def run_checks(
+    directory: Path, ci: bool = False, skip: list[str] | None = None
+) -> bool:
+    """Run all quality checks, optionally skipping specified hooks."""
     _ensure_configs()
     config = _PRE_COMMIT_CI if ci else _PRE_COMMIT_LOCAL
     config_path = _CONFIG_DIR / config
@@ -46,7 +72,10 @@ def run_checks(directory: Path, ci: bool = False) -> bool:
         result = run_command(
             [PRE_COMMIT_BIN, "run", "--all-files", "--config", str(config_path)],
             CommandOptions(
-                cwd=directory, stream=True, skip_lines_containing=_SKIPPED_MARKER
+                cwd=directory,
+                env=_build_skip_env(directory, skip),
+                skip_lines_containing=_SKIPPED_MARKER,
+                stream=True,
             ),
         )
         return result.returncode == 0
