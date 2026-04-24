@@ -3,6 +3,13 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.2] - 2026-04-24
+
+### Changed
+
+- Migrate ESLint config from `.eslintrc.json` to flat config (`eslint.config.cjs`) for ESLint 10.
+- Move ESLint, Stylelint, and HTMLHint to local pre-commit hooks with `NODE_PATH` resolution.
+
 ## [1.3.1] - 2026-04-24
 
 ### Fixed
