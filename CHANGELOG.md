@@ -16,7 +16,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Add language suffix to all hook IDs for consistency.
 - Reorder pre-commit hooks to run formatters before linters.
-- Replace language table and supported languages list in README with link to quality checks doc.
+- Replace language table and supported languages list in README with link to quality checks documentation.
 
 ## [1.2.1] - 2026-04-23
 
