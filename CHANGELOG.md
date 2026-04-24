@@ -7,10 +7,10 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- `--skip` CLI flag for one-off hook skipping.
 - `dryclean.yml` config file for persistent hook skipping.
 - Output filter in `run_command` for streamed line filtering.
 - Quality checks documentation with hook IDs, descriptions, and skip instructions.
+- `--skip` CLI flag for one-off hook skipping.
 
 ### Changed
 
