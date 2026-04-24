@@ -41,7 +41,7 @@ repos:
     hooks:
       - id: stylelint
         name: stylelint
-        entry: sh -c 'NODE_PATH="$(dirname "$(command -v stylelint)")/../lib/node_modules" exec stylelint "$@"' --
+        entry: sh -c 'exec stylelint --config-basedir "$(dirname "$(command -v stylelint)")/../lib" "$@"' --
         language: node
         types: [css]
         args: [--config, "/tmp/dryclean/stylelintrc.json"]
