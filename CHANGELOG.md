@@ -3,6 +3,14 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-04-24
+
+### Fixed
+
+- Add missing `eslint` to pre-commit hook `additional_dependencies`.
+- Auto-detect stale pre-commit cache and retry after cleaning.
+- Resolve stylelint plugin path with `--config-basedir` for external config files.
+
 ## [1.3.0] - 2026-04-24
 
 ### Added
