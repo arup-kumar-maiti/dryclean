@@ -3,6 +3,12 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.3] - 2026-04-24
+
+### Fixed
+
+- Use `--config-basedir` for Stylelint plugin resolution instead of `NODE_PATH`.
+
 ## [1.3.2] - 2026-04-24
 
 ### Changed
