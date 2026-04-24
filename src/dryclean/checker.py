@@ -1,6 +1,7 @@
 """Run quality checks via pre-commit with dryclean configs."""
 
 import os
+import re
 from pathlib import Path
 
 import yaml
@@ -8,12 +9,14 @@ import yaml
 from dryclean.constant import DRYCLEAN_BIN, PRE_COMMIT_BIN
 from dryclean.util import (
     CommandOptions,
+    info,
     read_template,
     run_command,
     warning,
     write_file,
 )
 
+_CACHE_ERROR_PATTERN = re.compile(r"Executable `.+` not found|Could not find \".+\"")
 _CONFIG_DIR = Path("/tmp/dryclean")
 _CONFIG_FILE = "dryclean.yml"
 _DRYCLEAN_ENTRY_PREFIX = "entry: dryclean "
@@ -61,6 +64,10 @@ def _build_skip_env(
     )
 
 
+def _is_stale_cache(hook_output: str) -> bool:
+    return bool(_CACHE_ERROR_PATTERN.search(hook_output))
+
+
 def run_checks(
     directory: Path, ci: bool = False, skip: list[str] | None = None
 ) -> bool:
@@ -68,16 +75,19 @@ def run_checks(
     _ensure_configs()
     config = _PRE_COMMIT_CI if ci else _PRE_COMMIT_LOCAL
     config_path = _CONFIG_DIR / config
+    command = [PRE_COMMIT_BIN, "run", "--all-files", "--config", str(config_path)]
+    options = CommandOptions(
+        cwd=directory,
+        env=_build_skip_env(directory, skip),
+        skip_lines_containing=_SKIPPED_MARKER,
+        stream=True,
+    )
     try:
-        result = run_command(
-            [PRE_COMMIT_BIN, "run", "--all-files", "--config", str(config_path)],
-            CommandOptions(
-                cwd=directory,
-                env=_build_skip_env(directory, skip),
-                skip_lines_containing=_SKIPPED_MARKER,
-                stream=True,
-            ),
-        )
+        result = run_command(command, options)
+        if result.returncode != 0 and _is_stale_cache(result.stdout):
+            info("Stale cache. Clean and retry.")
+            run_command([PRE_COMMIT_BIN, "clean"], CommandOptions(silent=True))
+            result = run_command(command, options)
         return result.returncode == 0
     except FileNotFoundError:
         warning("Pre-commit not found. Skipping.")

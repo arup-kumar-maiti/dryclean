@@ -87,12 +87,16 @@ def _run_streamed(
     )
     assert process.stdout is not None
     assert options.skip_lines_containing is not None
+    captured: list[str] = []
     for line in process.stdout:
+        captured.append(line)
         if options.skip_lines_containing not in line:
             sys.stdout.write(line)
             sys.stdout.flush()
     process.wait()
-    return subprocess.CompletedProcess(command, process.returncode)
+    return subprocess.CompletedProcess(
+        command, process.returncode, stdout="".join(captured)
+    )
 
 
 def _run_default(
