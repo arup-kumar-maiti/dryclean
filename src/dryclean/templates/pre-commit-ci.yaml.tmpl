@@ -33,6 +33,7 @@ repos:
       - id: eslint
         args: [--config, "/tmp/dryclean/eslintrc.json"]
         additional_dependencies:
+          - eslint
           - eslint-plugin-import
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
@@ -52,7 +53,7 @@ repos:
     hooks:
       - id: stylelint
         name: stylelint
-        entry: stylelint
+        entry: sh -c 'exec stylelint --config-basedir "$(dirname "$(command -v stylelint)")/../lib" "$@"' --
         language: node
         types: [css]
         args: [--config, "/tmp/dryclean/stylelintrc.json"]
