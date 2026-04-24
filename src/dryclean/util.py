@@ -17,6 +17,7 @@ class CommandOptions:
     """Options for run_command."""
 
     cwd: Path | None = None
+    env: dict[str, str] | None = None
     input: str | None = None
     silent: bool = False
     skip_lines_containing: str | None = None
@@ -79,8 +80,9 @@ def _run_streamed(
     process = subprocess.Popen(
         command,
         cwd=options.cwd,
-        stdout=subprocess.PIPE,
+        env=options.env,
         stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
         text=True,
     )
     assert process.stdout is not None
@@ -98,9 +100,10 @@ def _run_default(
 ) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         command,
-        cwd=options.cwd,
-        input=options.input,
         capture_output=not options.stream,
+        cwd=options.cwd,
+        env=options.env,
+        input=options.input,
         text=True,
     )
     if (

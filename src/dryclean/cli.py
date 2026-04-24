@@ -5,6 +5,7 @@ usage:
   dryclean init             Set up quality checks in the current repo
   dryclean run              Run all checks with auto-fix
   dryclean run --ci         Run all checks in report-only mode
+  dryclean run --skip a,b   Skip specific hooks by ID
   dryclean commit FILE      Validate commit message format
   dryclean check LANG NAME  Run a single check script
 """
@@ -33,6 +34,7 @@ def _add_commands(
     subparsers.add_parser("init", help="Set up quality checks in the current repo")
     run_parser = subparsers.add_parser("run", help="Run all checks with auto-fix")
     run_parser.add_argument("--ci", action="store_true", help="Run in report-only mode")
+    run_parser.add_argument("--skip", help="Skip comma-separated hook IDs")
     commit_parser = subparsers.add_parser(
         "commit", help="Validate commit message format"
     )
@@ -82,7 +84,8 @@ def _handle_init(args: argparse.Namespace) -> None:
 
 
 def _handle_run(args: argparse.Namespace) -> None:
-    all_passed = run_checks(Path("."), ci=args.ci)
+    skip = args.skip.split(",") if args.skip else None
+    all_passed = run_checks(Path("."), ci=args.ci, skip=skip)
     sys.exit(0 if all_passed else 1)
 
 
