@@ -7,10 +7,10 @@
 
 ## General
 
+- `no-commit-to-branch` — Block direct commits to main `[local]`
+- `check-merge-conflict` — Detect merge conflict strings in all files `[local + ci]`
 - `trailing-whitespace` — Remove trailing spaces from all files `[local: fix]`
 - `end-of-file-fixer` — Ensure newline at EOF for all files `[local: fix]`
-- `check-merge-conflict` — Detect merge conflict strings in all files `[local + ci]`
-- `no-commit-to-branch` — Block direct commits to main `[local]`
 
 ---
 
@@ -38,7 +38,7 @@
 ## CSS
 
 - `prettier` — Format CSS files `[local: fix | ci: report]`
-- `stylelint` — Lint CSS files `[local + ci]`
+- `stylelint` — Lint CSS files `[local: fix | ci: report]`
 - `check-comment-density-css` — Check max 15% comment-to-code ratio per file `[local + ci]`
 - `check-comment-period-css` — Check comment period punctuation rule `[local + ci]`
 - `check-inline-comments-css` — Reject inline comments `[local + ci]`
@@ -64,7 +64,7 @@
 ## JavaScript
 
 - `prettier` — Format JavaScript files `[local: fix | ci: report]`
-- `eslint` — Lint JavaScript files `[local + ci]`
+- `eslint` — Lint JavaScript files `[local: fix | ci: report]`
 - `check-comment-density-js` — Check max 15% comment-to-code ratio per file `[local + ci]`
 - `check-comment-period-js` — Check comment period punctuation rule `[local + ci]`
 - `check-constant-placement-js` — Check constants before function definitions `[local + ci]`

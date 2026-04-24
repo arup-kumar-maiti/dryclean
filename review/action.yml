@@ -23,8 +23,8 @@ runs:
       uses: anthropics/claude-code-action@v1
       with:
         claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
-        track_progress: "true"
-        use_sticky_comment: "true"
+        track_progress: 'true'
+        use_sticky_comment: 'true'
         claude_args: >-
           --json-schema '{
             "type": "object",
