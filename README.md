@@ -1,6 +1,6 @@
 # dryclean
 
-Multi-language code quality toolkit. One install. Every CSS, HTML, JavaScript, Python, and Shell file — checked.
+Multi-language code quality toolkit. One install. Every supported file — checked.
 
 ## Quick Start
 
@@ -24,15 +24,7 @@ dryclean run --ci
 
 ## What Gets Checked
 
-| Language   | Formatter | Linter     | Type Checker |
-|------------|-----------|------------|--------------|
-| CSS        | prettier  | stylelint  | —            |
-| HTML       | prettier  | htmlhint   | —            |
-| JavaScript | prettier  | eslint     | —            |
-| Python     | ruff      | ruff       | mypy         |
-| Shell      | —         | shellcheck | —            |
-
-Plus: trailing whitespace, EOF newlines, JSON/YAML/TOML syntax, merge conflicts, no direct commits to main, commit message format, and 38 custom quality scripts.
+Refer to [Quality Checks](docs/QUALITY_CHECKS.md) for hook IDs, skip configuration, and supported languages.
 
 ## GitHub Actions
 
@@ -47,11 +39,3 @@ Plus: trailing whitespace, EOF newlines, JSON/YAML/TOML syntax, merge conflicts,
   with:
     claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 ```
-
-## Supported Languages
-
-- CSS (.css)
-- HTML (.html)
-- JavaScript (.js)
-- Python (.py)
-- Shell (.sh)

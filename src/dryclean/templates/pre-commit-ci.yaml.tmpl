@@ -6,21 +6,19 @@ repos:
         types_or: [css, html, javascript, json, yaml]
         args: [--config, "/tmp/dryclean/prettierrc.json"]
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v10.2.1
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
     hooks:
-      - id: eslint
-        args: [--config, "/tmp/dryclean/eslintrc.json"]
-        additional_dependencies:
-          - eslint-plugin-import
+      - id: taplo-lint
+        args: [--config, "/tmp/dryclean/taplo.toml"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.11
     hooks:
-      - id: ruff-check
-        args: [--config, "/tmp/dryclean/ruff.toml"]
       - id: ruff-format
         args: [--check, --config, "/tmp/dryclean/ruff.toml"]
+      - id: ruff-check
+        args: [--config, "/tmp/dryclean/ruff.toml"]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.20.1
@@ -29,23 +27,25 @@ repos:
         args: [--config-file, "/tmp/dryclean/mypy.ini"]
         additional_dependencies: [rich, types-PyYAML]
 
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v10.2.1
+    hooks:
+      - id: eslint
+        args: [--config, "/tmp/dryclean/eslintrc.json"]
+        additional_dependencies:
+          - eslint-plugin-import
+
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
 
-  - repo: https://github.com/ComPWA/taplo-pre-commit
-    rev: v0.9.3
-    hooks:
-      - id: taplo-lint
-        args: [--config, "/tmp/dryclean/taplo.toml"]
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: check-json
-      - id: check-yaml
       - id: check-toml
+      - id: check-yaml
       - id: check-merge-conflict
 
   - repo: local
@@ -159,8 +159,8 @@ repos:
         entry: dryclean check javascript check_section_dividers
         language: system
         types: [javascript]
-      - id: check-argument-count
-        name: check argument count
+      - id: check-argument-count-py
+        name: check argument count (python)
         entry: dryclean check python check_argument_count
         language: system
         types: [python]
@@ -179,13 +179,13 @@ repos:
         entry: dryclean check python check_constant_placement
         language: system
         types: [python]
-      - id: check-docstring-blocks
-        name: check docstring blocks
+      - id: check-docstring-blocks-py
+        name: check docstring blocks (python)
         entry: dryclean check python check_docstring_blocks
         language: system
         types: [python]
-      - id: check-exception-location
-        name: check exception location
+      - id: check-exception-location-py
+        name: check exception location (python)
         entry: dryclean check python check_exception_location
         language: system
         types: [python]
@@ -199,8 +199,8 @@ repos:
         entry: dryclean check python check_inline_comments
         language: system
         types: [python]
-      - id: check-internal-docstring
-        name: check internal docstring
+      - id: check-internal-docstring-py
+        name: check internal docstring (python)
         entry: dryclean check python check_internal_docstring
         language: system
         types: [python]
@@ -209,8 +209,8 @@ repos:
         entry: dryclean check python check_section_dividers
         language: system
         types: [python]
-      - id: check-snake-case-filename
-        name: check snake case filename
+      - id: check-snake-case-filename-py
+        name: check snake case filename (python)
         entry: dryclean check python check_snake_case_filename
         language: system
         types: [python]
@@ -225,8 +225,8 @@ repos:
         entry: dryclean check shell check_comment_period
         language: system
         types: [bash]
-      - id: check-executable-permission
-        name: check executable permission
+      - id: check-executable-permission-sh
+        name: check executable permission (shell)
         entry: dryclean check shell check_executable_permission
         language: system
         types: [bash]
@@ -245,13 +245,13 @@ repos:
         entry: dryclean check shell check_section_dividers
         language: system
         types: [bash]
-      - id: check-shebang
-        name: check shebang
+      - id: check-shebang-sh
+        name: check shebang (shell)
         entry: dryclean check shell check_shebang
         language: system
         types: [bash]
-      - id: check-strict-mode
-        name: check strict mode
+      - id: check-strict-mode-sh
+        name: check strict mode (shell)
         entry: dryclean check shell check_strict_mode
         language: system
         types: [bash]
