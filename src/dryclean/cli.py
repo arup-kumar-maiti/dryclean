@@ -1,14 +1,4 @@
-"""
-dryclean CLI entry point.
-
-usage:
-  dryclean init             Set up quality checks in the current repo
-  dryclean run              Run all checks with auto-fix
-  dryclean run --ci         Run all checks in report-only mode
-  dryclean run --skip a,b   Skip specific hooks by ID
-  dryclean commit FILE      Validate commit message format
-  dryclean check LANG NAME  Run a single check script
-"""
+"""Define the dryclean CLI entry point."""
 
 from __future__ import annotations
 
@@ -35,26 +25,17 @@ def _add_commands(
     run_parser = subparsers.add_parser("run", help="Run all checks with auto-fix")
     run_parser.add_argument("--ci", action="store_true", help="Run in report-only mode")
     run_parser.add_argument("--skip", help="Skip comma-separated hook IDs")
-    commit_parser = subparsers.add_parser(
-        "commit", help="Validate commit message format"
-    )
-    commit_parser.add_argument("message_file", type=Path, help="Commit message file")
-    check_parser = subparsers.add_parser("check", help="Run a single check script")
-    check_parser.add_argument(
-        "language", help="Language folder (css, html, javascript, python, shell)"
-    )
-    check_parser.add_argument("script", help="Script name without .py extension")
-    check_parser.add_argument(
-        "remaining", nargs="*", help="Additional arguments and file paths"
-    )
+    commit_parser = subparsers.add_parser("commit")
+    commit_parser.add_argument("message_file", type=Path)
+    check_parser = subparsers.add_parser("check")
+    check_parser.add_argument("language")
+    check_parser.add_argument("script")
+    check_parser.add_argument("remaining", nargs="*")
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    _add_commands(parser.add_subparsers(dest="command"))
+    parser = argparse.ArgumentParser()
+    _add_commands(parser.add_subparsers(dest="command", metavar=""))
     return parser
 
 
