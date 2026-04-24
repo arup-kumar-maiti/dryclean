@@ -1,6 +1,8 @@
 'use strict';
 
+const IGNORED_NUMERIC_LITERALS = [0, 1];
 const IMPORT_PLUGIN = require('eslint-plugin-import');
+const MAX_PARAMS = 4;
 
 module.exports = [
   {
@@ -21,10 +23,10 @@ module.exports = [
           'newlines-between': 'always',
         },
       ],
-      'max-params': ['error', { max: 4 }],
+      'max-params': ['error', { max: MAX_PARAMS }],
       'no-console': 'error',
       'no-empty': ['error', { allowEmptyCatch: false }],
-      'no-magic-numbers': ['error', { ignore: [0, 1], enforceConst: true }],
+      'no-magic-numbers': ['error', { ignore: IGNORED_NUMERIC_LITERALS, enforceConst: true }],
       'no-restricted-syntax': [
         'error',
         {
