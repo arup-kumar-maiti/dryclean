@@ -3,6 +3,21 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-04-24
+
+### Added
+
+- `--skip` CLI flag for one-off hook skipping.
+- `dryclean.yml` config file for persistent hook skipping.
+- Output filter in `run_command` for streamed line filtering.
+- Quality checks documentation with hook IDs, descriptions, and skip instructions.
+
+### Changed
+
+- Add language suffix to all hook IDs for consistency.
+- Reorder pre-commit hooks to run formatters before linters.
+- Replace language table and supported languages list in README with link to quality checks doc.
+
 ## [1.2.1] - 2026-04-23
 
 ### Added
