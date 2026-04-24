@@ -34,7 +34,7 @@ def _add_commands(
     subparsers.add_parser("init", help="Set up quality checks in the current repo")
     run_parser = subparsers.add_parser("run", help="Run all checks with auto-fix")
     run_parser.add_argument("--ci", action="store_true", help="Run in report-only mode")
-    run_parser.add_argument("--skip", help="Comma-separated hook IDs to skip")
+    run_parser.add_argument("--skip", help="Skip comma-separated hook IDs")
     commit_parser = subparsers.add_parser(
         "commit", help="Validate commit message format"
     )

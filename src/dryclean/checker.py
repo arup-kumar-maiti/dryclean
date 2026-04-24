@@ -64,7 +64,7 @@ def _build_skip_env(
 def run_checks(
     directory: Path, ci: bool = False, skip: list[str] | None = None
 ) -> bool:
-    """Run all quality checks, optionally skipping specified hooks."""
+    """Run all quality checks and skip any specified hooks."""
     _ensure_configs()
     config = _PRE_COMMIT_CI if ci else _PRE_COMMIT_LOCAL
     config_path = _CONFIG_DIR / config
