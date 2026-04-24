@@ -1,0 +1,39 @@
+'use strict';
+
+const importPlugin = require('eslint-plugin-import');
+
+module.exports = [
+  {
+    plugins: {
+      import: importPlugin,
+    },
+    languageOptions: {
+      sourceType: 'commonjs',
+    },
+    rules: {
+      camelcase: ['error', { properties: 'never' }],
+      'consistent-return': 'error',
+      'import/no-duplicates': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal'],
+          'newlines-between': 'always',
+        },
+      ],
+      'max-params': ['error', { max: 4 }],
+      'no-console': 'error',
+      'no-empty': ['error', { allowEmptyCatch: false }],
+      'no-magic-numbers': ['error', { ignore: [0, 1], enforceConst: true }],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ImportDeclaration',
+          message: 'Use require() instead of import. This is a CommonJS project.',
+        },
+      ],
+      'no-unused-vars': ['error', { vars: 'all', args: 'after-used' }],
+      quotes: ['error', 'single', { avoidEscape: true }],
+    },
+  },
+];

@@ -27,15 +27,6 @@ repos:
         args: [--config-file, "/tmp/dryclean/mypy.ini"]
         additional_dependencies: [rich, types-PyYAML]
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v10.2.1
-    hooks:
-      - id: eslint
-        args: [--config, "/tmp/dryclean/eslintrc.json"]
-        additional_dependencies:
-          - eslint
-          - eslint-plugin-import
-
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
@@ -53,7 +44,7 @@ repos:
     hooks:
       - id: stylelint
         name: stylelint
-        entry: sh -c 'exec stylelint --config-basedir "$(dirname "$(command -v stylelint)")/../lib" "$@"' --
+        entry: sh -c 'NODE_PATH="$(dirname "$(command -v stylelint)")/../lib/node_modules" exec stylelint "$@"' --
         language: node
         types: [css]
         args: [--config, "/tmp/dryclean/stylelintrc.json"]
@@ -65,6 +56,13 @@ repos:
         types: [html]
         args: [--config, "/tmp/dryclean/htmlhintrc.json"]
         additional_dependencies: ["htmlhint"]
+      - id: eslint
+        name: eslint
+        entry: sh -c 'NODE_PATH="$(dirname "$(command -v eslint)")/../lib/node_modules" exec eslint "$@"' --
+        language: node
+        types: [javascript]
+        args: [--config, "/tmp/dryclean/eslint.config.cjs"]
+        additional_dependencies: ["eslint", "eslint-plugin-import"]
       - id: check-comment-density-css
         name: check comment density (css)
         entry: dryclean check css check_comment_density
