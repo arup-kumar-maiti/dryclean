@@ -29,7 +29,7 @@ dryclean run --ci
 
 ## What Gets Checked
 
-Refer to [Quality Checks](docs/QUALITY_CHECKS.md) for hook IDs, skip configuration, and supported languages.
+Refer to [Quality Checks](https://github.com/arup-kumar-maiti/dryclean/blob/main/docs/QUALITY_CHECKS.md) for hook IDs, skip configuration, and supported languages.
 
 ## GitHub Actions
 
