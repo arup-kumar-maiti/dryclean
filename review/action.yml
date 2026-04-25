@@ -23,16 +23,15 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
+        REVIEW_MARKER: '## Claude Review'
       run: |
         set -e
         PR_NUMBER="${{ github.event.pull_request.number }}"
         REPOSITORY="${{ github.repository }}"
-        REVIEW_MARKER="## Claude Review"
 
         NODE_IDS=$(gh api "repos/${REPOSITORY}/issues/${PR_NUMBER}/comments" \
           --paginate \
-          --jq --arg marker "$REVIEW_MARKER" \
-          '.[] | select(.body | test($marker)) | .node_id') \
+          --jq '.[] | select(.body | test(env.REVIEW_MARKER)) | .node_id') \
           || { echo "Warning: Failed to fetch PR comments. Skipping minimization."; }
 
         for NODE_ID in $NODE_IDS; do
