@@ -78,8 +78,9 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        entry: mypy --config-file /tmp/dryclean/mypy.ini
+        entry: mypy --config-file /tmp/dryclean/mypy.ini .
         language: system
+        pass_filenames: false
         types: [python]
 
   - repo: local
