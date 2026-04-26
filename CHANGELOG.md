@@ -3,6 +3,16 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6] - 2026-04-26
+
+### Changed
+
+- Alphabetical ordering for `pyproject.toml` keys, sections, and lists.
+
+### Fixed
+
+- Auto-resolve downstream project dependencies for mypy type checking.
+
 ## [1.3.5] - 2026-04-26
 
 ### Changed
