@@ -27,6 +27,7 @@ runs:
           pip install -e "."
         else
           pip install dryclean
+          pip install -e "." 2>/dev/null || true
         fi
 
     - name: Run quality checks
