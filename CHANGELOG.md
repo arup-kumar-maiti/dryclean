@@ -3,6 +3,12 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.8] - 2026-04-26
+
+### Fixed
+
+- Handle shallow clone for downstream project install via `SETUPTOOLS_SCM_PRETEND_VERSION` fallback.
+
 ## [1.3.7] - 2026-04-26
 
 ### Added
