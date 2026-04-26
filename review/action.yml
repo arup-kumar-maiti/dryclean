@@ -22,6 +22,7 @@ runs:
       id: resolve-previous
       shell: bash
       env:
+        CLASSIFIER: OUTDATED
         GH_TOKEN: ${{ github.token }}
         REVIEW_MARKER: '## Claude Review'
       run: |
@@ -35,15 +36,16 @@ runs:
           || { echo "Warning: Failed to fetch PR comments. Skipping minimization."; }
 
         for node_id in $node_ids; do
-          gh api graphql -f query="
-            mutation {
-              minimizeComment(input: {subjectId: \"${node_id}\", classifier: OUTDATED}) {
-                minimizedComment {
-                  isMinimized
+          gh api graphql \
+            -F "subjectId=${node_id}" \
+            -F "classifier=${CLASSIFIER}" \
+            -f query='
+              mutation($subjectId: ID!, $classifier: ReportedContentClassifiers!) {
+                minimizeComment(input: {subjectId: $subjectId, classifier: $classifier}) {
+                  minimizedComment { isMinimized }
                 }
               }
-            }
-          " || echo "Warning: Failed to minimize comment ${node_id}."
+            ' || echo "Warning: Failed to minimize comment ${node_id}."
         done
 
     - name: Run Claude PR review
