@@ -3,6 +3,12 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.9] - 2026-04-26
+
+### Added
+
+- `ignore_missing_imports` in mypy config as safety net for unresolvable third-party imports.
+
 ## [1.3.8] - 2026-04-26
 
 ### Fixed
