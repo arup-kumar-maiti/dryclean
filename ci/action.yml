@@ -27,7 +27,7 @@ runs:
           pip install -e "."
         else
           pip install dryclean
-          pip install -e "." 2>&1 || echo "Could not install downstream project. Mypy may miss project types."
+          pip install -e "." 2>&1 || echo "Downstream project install failed. Mypy runs without project types."
         fi
 
     - name: Run quality checks
