@@ -79,7 +79,7 @@ repos:
     hooks:
       - id: mypy
         args: [--config-file, "/tmp/dryclean/mypy.ini"]
-        additional_dependencies: [rich, types-PyYAML]
+        additional_dependencies: [., rich, types-PyYAML]
 
   - repo: local
     hooks:
