@@ -7,7 +7,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Alphabetical ordering for `pyproject.toml` keys, sections, and lists.
+- Alphabetize `pyproject.toml` keys, sections, and lists.
 
 ### Fixed
 
