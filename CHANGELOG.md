@@ -3,6 +3,21 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.7] - 2026-04-26
+
+### Added
+
+- `mypy` and `types-pyyaml` as dryclean dependencies.
+
+### Changed
+
+- Switch mypy hook from isolated `mirrors-mypy` to `language: system` for downstream dependency resolution.
+- Upgrade `pre-commit` minimum to 4.6.0.
+
+### Fixed
+
+- Install downstream project in CI so mypy resolves project imports.
+
 ## [1.3.6] - 2026-04-26
 
 ### Changed
