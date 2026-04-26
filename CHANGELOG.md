@@ -3,6 +3,18 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.5] - 2026-04-26
+
+### Changed
+
+- Review comment resolution instead of overwrite, preserving review history across pushes.
+
+### Fixed
+
+- Absolute URL for quality checks link in README for PyPI rendering.
+- Consistent `env` before `run` ordering in publish workflow.
+- `lower_snake_case` for local shell variables in workflow files.
+
 ## [1.3.4] - 2026-04-24
 
 ### Added
