@@ -13,10 +13,10 @@ runs:
       id: prompt
       shell: bash
       run: |
-        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-        echo "content<<$EOF" >> $GITHUB_OUTPUT
+        eof=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "content<<$eof" >> $GITHUB_OUTPUT
         cat ${{ github.action_path }}/prompt.md >> $GITHUB_OUTPUT
-        echo "$EOF" >> $GITHUB_OUTPUT
+        echo "$eof" >> $GITHUB_OUTPUT
 
     - name: Resolve previous review comments
       id: resolve-previous
@@ -26,24 +26,24 @@ runs:
         REVIEW_MARKER: '## Claude Review'
       run: |
         set -e
-        PR_NUMBER="${{ github.event.pull_request.number }}"
-        REPOSITORY="${{ github.repository }}"
+        pr_number="${{ github.event.pull_request.number }}"
+        repository="${{ github.repository }}"
 
-        NODE_IDS=$(gh api "repos/${REPOSITORY}/issues/${PR_NUMBER}/comments" \
+        node_ids=$(gh api "repos/${repository}/issues/${pr_number}/comments" \
           --paginate \
           --jq '.[] | select(.body | test(env.REVIEW_MARKER)) | .node_id') \
           || { echo "Warning: Failed to fetch PR comments. Skipping minimization."; }
 
-        for NODE_ID in $NODE_IDS; do
+        for node_id in $node_ids; do
           gh api graphql -f query="
             mutation {
-              minimizeComment(input: {subjectId: \"${NODE_ID}\", classifier: OUTDATED}) {
+              minimizeComment(input: {subjectId: \"${node_id}\", classifier: OUTDATED}) {
                 minimizedComment {
                   isMinimized
                 }
               }
             }
-          " || echo "Warning: Failed to minimize comment ${NODE_ID}."
+          " || echo "Warning: Failed to minimize comment ${node_id}."
         done
 
     - name: Run Claude PR review
@@ -70,6 +70,6 @@ runs:
       if: steps.review.outputs.structured_output != '' && fromJSON(steps.review.outputs.structured_output).violations_found == true
       shell: bash
       run: |
-        COUNT="${{ fromJSON(steps.review.outputs.structured_output).violation_count }}"
-        echo "::error::Claude review flagged ${COUNT} [Review] rule violation(s). See the sticky comment on this PR for details and fix them before merging."
+        count="${{ fromJSON(steps.review.outputs.structured_output).violation_count }}"
+        echo "::error::Claude review flagged ${count} [Review] rule violation(s). See the sticky comment on this PR for details and fix them before merging."
         exit 1
