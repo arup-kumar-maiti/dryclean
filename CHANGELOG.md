@@ -7,13 +7,13 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Review comment resolution instead of overwrite, preserving review history across pushes.
+- Resolve review comments instead of overwriting, preserving history across pushes.
 
 ### Fixed
 
-- Absolute URL for quality checks link in README for PyPI rendering.
-- Consistent `env` before `run` ordering in publish workflow.
-- `lower_snake_case` for local shell variables in workflow files.
+- Use absolute URL for quality checks link in README for PyPI rendering.
+- Enforce consistent `env`-before-`run` ordering in publish workflow.
+- Use `lower_snake_case` for local shell variables in workflow files.
 
 ## [1.3.4] - 2026-04-24
 
