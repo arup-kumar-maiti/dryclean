@@ -15,6 +15,7 @@ dependencies = [
   "pre-commit>=4.6.0",
   "pyyaml>=6.0",
   "rich>=15.0",
+  "types-pyyaml>=6.0",
 ]
 description = "Multi-language code quality toolkit"
 dynamic = ["version"]
