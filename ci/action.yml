@@ -27,7 +27,7 @@ runs:
           pip install -e "."
         else
           pip install dryclean
-          pip install -e "." 2>&1 || echo "Downstream project not installed. Skipping project types."
+          SETUPTOOLS_SCM_PRETEND_VERSION=0.0.0 pip install . 2>&1 || echo "Downstream project not installed. Skipping project types."
         fi
 
     - name: Run quality checks
