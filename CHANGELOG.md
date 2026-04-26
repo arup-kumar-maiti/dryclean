@@ -11,8 +11,8 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Use absolute URL for quality checks link in README for PyPI rendering.
 - Enforce consistent `env`-before-`run` ordering in publish workflow.
+- Use absolute URL for quality checks link in README for PyPI rendering.
 - Use `lower_snake_case` for local shell variables in workflow files.
 
 ## [1.3.4] - 2026-04-24
