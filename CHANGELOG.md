@@ -3,6 +3,13 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-05-10
+
+### Added
+
+- `dryclean update` command to update CLAUDE.md and workflow to the latest version.
+- Marker-based CLAUDE.md update system with `<!-- dryclean:start -->` and `<!-- dryclean:end -->` markers.
+
 ## [1.5.0] - 2026-05-10
 
 ### Added
