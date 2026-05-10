@@ -97,7 +97,9 @@ def _apply_branch_protection(owner: str, repo: str, payload: str) -> bool:
 def _configure_branch_protection(owner: str, repo: str) -> None:
     payload = json.dumps(
         {
-            "required_pull_request_reviews": {},
+            "required_pull_request_reviews": {
+                "required_approving_review_count": 0,
+            },
             "required_status_checks": {
                 "contexts": [_get_status_check_context()],
                 "strict": True,
