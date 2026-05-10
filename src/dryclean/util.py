@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.rule import Rule
 
-from dryclean.constant import TEMPLATES_ROOT
+from dryclean.constant import MARKER_END, MARKER_START, TEMPLATES_ROOT
 
 
 @dataclass
@@ -72,6 +72,53 @@ def write_file(path: Path, content: str, overwrite: bool = False) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def _has_markers(content: str) -> bool:
+    return MARKER_START in content and MARKER_END in content
+
+
+def _find_marker_range(content: str) -> tuple[int, int]:
+    lines = content.splitlines()
+    start = 0
+    end = 0
+    for index, line in enumerate(lines):
+        if line.strip() == MARKER_START and start == 0:
+            start = index
+        if line.strip() == MARKER_END:
+            end = index
+    return (start, end)
+
+
+def _replace_marked_section(existing: str, managed: str) -> str:
+    lines = existing.splitlines()
+    start, end = _find_marker_range(existing)
+    before = lines[:start]
+    after = lines[end + 1 :]
+    managed_lines = managed.splitlines()
+    sections = []
+    if before:
+        sections.extend([*before, ""])
+    sections.extend(managed_lines)
+    if after:
+        sections.extend(["", *after])
+    return "\n".join(sections) + "\n"
+
+
+def update_claude_md(path: Path, template: str) -> None:
+    """Update the managed section of a CLAUDE.md file."""
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(template, encoding="utf-8")
+        return
+    existing = path.read_text(encoding="utf-8")
+    if not _has_markers(existing):
+        combined = existing.rstrip() + "\n\n" + template
+        path.write_text(combined, encoding="utf-8")
+        info("No dryclean markers. Rules appended to CLAUDE.md.")
+        return
+    updated = _replace_marked_section(existing, template)
+    path.write_text(updated, encoding="utf-8")
 
 
 def _run_streamed(
