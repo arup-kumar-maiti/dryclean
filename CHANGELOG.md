@@ -7,7 +7,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- `dryclean update` command to update CLAUDE.md and workflow to the latest version.
+- `dryclean update` command for CLAUDE.md and workflow updates.
 - Marker-based CLAUDE.md update system with `<!-- dryclean:start -->` and `<!-- dryclean:end -->` markers.
 
 ## [1.5.0] - 2026-05-10
