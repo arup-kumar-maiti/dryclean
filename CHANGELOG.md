@@ -3,6 +3,21 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-05-10
+
+### Added
+
+- Badge section in README for downstream repositories.
+
+### Changed
+
+- Replace `argparse` with `typer` across CLI and check scripts.
+- Upgrade `commitizen` minimum to 4.15, `mypy` to 2.0, `typer` to 0.21.
+
+### Fixed
+
+- Disable required approvals in branch protection so PRs merge without reviewer count.
+
 ## [1.3.9] - 2026-04-26
 
 ### Added
