@@ -5,11 +5,12 @@ usage:
   python scripts/shell/check_inline_comments.py [FILE ...]
 """
 
-import argparse
 import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+import typer
 
 _COMMENT_PREFIX = "#"
 _INLINE_COMMENT_PATTERN = re.compile(r"^[^#'\"]*[^\s].*\s#\s")
@@ -48,18 +49,17 @@ def _print_report(violations: list[_FileResult]) -> None:
         print(f"VIOLATION:  inline_comment | {violation.path}:{violation.line}")
 
 
-def main() -> None:
-    """Run the check and exit with a non-zero status if violations are found."""
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    parser.add_argument("files", nargs="*", type=Path, help="File paths to check")
-    args = parser.parse_args()
-
-    violations = _find_violations(args.files)
+def _run(
+    files: list[Path] = typer.Argument(default=None),
+) -> None:
+    violations = _find_violations(files or [])
     _print_report(violations)
     sys.exit(0 if not violations else 1)
+
+
+def main() -> None:
+    """Run the check and exit with a non-zero status if violations are found."""
+    typer.run(_run)
 
 
 if __name__ == "__main__":

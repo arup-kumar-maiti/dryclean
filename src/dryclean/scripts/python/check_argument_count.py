@@ -5,11 +5,12 @@ usage:
   python scripts/python/check_argument_count.py [--max-args 4] [FILE ...]
 """
 
-import argparse
 import ast
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+import typer
 
 _DEFAULT_MAX_ARGS = 4
 
@@ -64,24 +65,20 @@ def _print_report(violations: list[_FunctionResult]) -> None:
         )
 
 
-def main() -> None:
-    """Run the check and exit with a non-zero status if violations are found."""
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    parser.add_argument("files", nargs="*", type=Path, help="File paths to check")
-    parser.add_argument(
-        "--max-args",
-        type=int,
-        default=_DEFAULT_MAX_ARGS,
-        help="Maximum allowed arguments per function (default: 4)",
-    )
-    args = parser.parse_args()
-
-    violations = _find_violations(args.files, args.max_args)
+def _run(
+    files: list[Path] = typer.Argument(default=None),
+    max_args: int = typer.Option(
+        _DEFAULT_MAX_ARGS, help="Maximum allowed arguments per function"
+    ),
+) -> None:
+    violations = _find_violations(files or [], max_args)
     _print_report(violations)
     sys.exit(0 if not violations else 1)
+
+
+def main() -> None:
+    """Run the check and exit with a non-zero status if violations are found."""
+    typer.run(_run)
 
 
 if __name__ == "__main__":

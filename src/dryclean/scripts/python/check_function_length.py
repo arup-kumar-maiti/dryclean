@@ -5,11 +5,12 @@ usage:
   python scripts/python/check_function_length.py [--max-lines 30] [FILE ...]
 """
 
-import argparse
 import ast
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+import typer
 
 _DEFAULT_MAX_LINES = 30
 
@@ -61,24 +62,20 @@ def _print_report(violations: list[_FunctionResult]) -> None:
         )
 
 
-def main() -> None:
-    """Run the check and exit with a non-zero status if violations are found."""
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    parser.add_argument("files", nargs="*", type=Path, help="File paths to check")
-    parser.add_argument(
-        "--max-lines",
-        type=int,
-        default=_DEFAULT_MAX_LINES,
-        help="Maximum allowed lines per function (default: 30)",
-    )
-    args = parser.parse_args()
-
-    violations = _find_violations(args.files, args.max_lines)
+def _run(
+    files: list[Path] = typer.Argument(default=None),
+    max_lines: int = typer.Option(
+        _DEFAULT_MAX_LINES, help="Maximum allowed lines per function"
+    ),
+) -> None:
+    violations = _find_violations(files or [], max_lines)
     _print_report(violations)
     sys.exit(0 if not violations else 1)
+
+
+def main() -> None:
+    """Run the check and exit with a non-zero status if violations are found."""
+    typer.run(_run)
 
 
 if __name__ == "__main__":
