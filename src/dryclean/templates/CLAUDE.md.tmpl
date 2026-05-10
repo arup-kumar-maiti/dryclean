@@ -10,21 +10,21 @@ Non-negotiable rules for this repo. Language-specific details are in `docs/<lang
 
 ## Quick reference
 
-| Convention        | CSS                  | HTML               | JavaScript           | Python             | Shell                          |
-|-------------------|----------------------|--------------------|----------------------|--------------------|--------------------------------|
-| File naming       | `kebab-case`         | `kebab-case`       | `kebab-case`         | `snake_case`       | `kebab-case`                   |
-| Variable naming   | —                    | —                  | `camelCase`          | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
-| Function naming   | —                    | —                  | `camelCase`          | `snake_case`       | —                              |
-| Constant naming   | —                    | —                  | `UPPER_SNAKE_CASE`   | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
-| Class naming      | `kebab-case`         | —                  | —                    | `PascalCase`       | —                              |
-| Custom properties | `--kebab-case`       | —                  | —                    | —                  | —                              |
-| Data attributes   | —                    | `data-kebab-case`  | —                    | —                  | —                              |
-| Quotes            | Double               | Double             | Single               | Double             | —                              |
-| Imports           | —                    | —                  | built-in → 3rd → int | stdlib → 3rd → int | —                              |
-| Formatter         | prettier             | prettier           | prettier             | ruff               | —                              |
-| Linter            | stylelint            | htmlhint           | eslint               | ruff               | shellcheck                     |
-| Type checker      | —                    | —                  | —                    | mypy (strict)      | —                              |
-| Docstrings        | —                    | —                  | JSDoc                | Docstrings         | —                              |
+| Convention        | CSS                  | Go                            | HTML               | JavaScript           | Python             | Shell                          |
+|-------------------|----------------------|-------------------------------|--------------------|-----------------------|--------------------|--------------------------------|
+| File naming       | `kebab-case`         | `snake_case`                  | `kebab-case`       | `kebab-case`          | `snake_case`       | `kebab-case`                   |
+| Variable naming   | —                    | `camelCase` / `PascalCase`    | —                  | `camelCase`           | `snake_case`       | `lower_snake` / `UPPER_SNAKE`  |
+| Function naming   | —                    | `camelCase` / `PascalCase`    | —                  | `camelCase`           | `snake_case`       | —                              |
+| Constant naming   | —                    | `camelCase` / `PascalCase`    | —                  | `UPPER_SNAKE_CASE`    | `UPPER_SNAKE_CASE` | `UPPER_SNAKE_CASE`             |
+| Class naming      | `kebab-case`         | `PascalCase`                  | —                  | —                     | `PascalCase`       | —                              |
+| Custom properties | `--kebab-case`       | —                             | —                  | —                     | —                  | —                              |
+| Data attributes   | —                    | —                             | `data-kebab-case`  | —                     | —                  | —                              |
+| Quotes            | Double               | Double                        | Double             | Single                | Double             | —                              |
+| Imports           | —                    | stdlib → 3rd → int            | —                  | built-in → 3rd → int | stdlib → 3rd → int | —                              |
+| Formatter         | prettier             | golangci-lint                 | prettier           | prettier              | ruff               | —                              |
+| Linter            | stylelint            | golangci-lint                 | htmlhint           | eslint                | ruff               | shellcheck                     |
+| Type checker      | —                    | —                             | —                  | —                     | mypy (strict)      | —                              |
+| Docstrings        | —                    | GoDoc                         | —                  | JSDoc                 | Docstrings         | —                              |
 
 ---
 
@@ -182,6 +182,71 @@ Apply these when editing `.css` files, in addition to universal rules.
 - One declaration per line.
 - **Double quotes**.
 - `prettier` formats, `stylelint` lints — no manual overrides.
+
+---
+
+## Go rules
+
+Apply these when editing `.go` files, in addition to universal rules.
+
+### Anti-patterns — DON'T
+
+- Adding a 5th parameter → wrap in an options struct.
+- Discarding errors with `_` → check every returned error.
+- Splitting a long function with `// region` / `// step 1` → extract real helpers.
+- Using `panic` for expected errors → return `error` instead.
+
+### Naming `[CI · Review]`
+
+- Files: `snake_case`, singular noun. `[Review]`
+- Variables: `camelCase` / `PascalCase`. `[CI]`
+- Constants: `camelCase` / `PascalCase`. `[CI]`
+- Structs: `PascalCase`, noun or noun phrase. `[Review]`
+- Interfaces: `PascalCase`, `-er` suffix for single-method. `[CI]`
+- Functions: `camelCase` / `PascalCase`, verb or verb phrase. `[Review]`
+- Packages: `lowercase`, single word, no underscores. `[CI]`
+
+### Imports `[CI]`
+
+- Order: **stdlib → third-party → internal**.
+- No dot imports (`. "pkg"`).
+
+### Types `[Review]`
+
+- Boundary data (API / service / config) → **struct with JSON tags**.
+- Internal data structures → **struct**.
+
+### Functions `[CI · Review]`
+
+- 5+ args → wrap in an **options struct**. `[Review]`
+
+### Error handling `[CI · Review]`
+
+- Return `error` as the last return value. `[CI]`
+- Check every returned error — never discard with `_`. `[CI]`
+- Wrap errors with `fmt.Errorf("context: %w", err)`. `[CI]`
+
+### Formatting `[CI]`
+
+- One blank line between top-level definitions.
+- Tabs for indentation.
+- `golangci-lint` formats and lints — no manual overrides.
+
+### GoDoc `[Review]`
+
+- Public functions: one-line GoDoc starting with the function name.
+- Internal functions: no GoDoc.
+
+```go
+// Public
+// FindUser returns the user matching the given ID.
+func FindUser(userID string) (User, error) {
+
+// Internal
+func normalizeEmail(email string) string {
+    return strings.TrimSpace(strings.ToLower(email))
+}
+```
 
 ---
 
