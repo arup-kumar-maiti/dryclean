@@ -6,7 +6,7 @@
 
 ## Stack
 
-- Go 1.21+, golangci-lint
+- Go 1.26+, golangci-lint
 
 ---
 

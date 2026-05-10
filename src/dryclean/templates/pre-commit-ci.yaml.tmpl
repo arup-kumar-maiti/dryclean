@@ -20,6 +20,15 @@ repos:
         args: [--config, "/tmp/dryclean/prettierrc.json"]
         additional_dependencies: ["prettier@3.8.3"]
 
+  - repo: local
+    hooks:
+      - id: golangci-lint
+        name: golangci-lint
+        entry: golangci-lint run --config /tmp/dryclean/golangci.yml
+        language: system
+        types: [go]
+        pass_filenames: false
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.11
     hooks:
@@ -110,6 +119,49 @@ repos:
         entry: dryclean check css check_section_dividers
         language: system
         types: [css]
+
+  - repo: local
+    hooks:
+      - id: check-argument-count-go
+        name: check argument count (go)
+        entry: dryclean check go check_argument_count
+        language: system
+        types: [go]
+      - id: check-comment-density-go
+        name: check comment density (go)
+        entry: dryclean check go check_comment_density
+        language: system
+        types: [go]
+      - id: check-comment-period-go
+        name: check comment period (go)
+        entry: dryclean check go check_comment_period
+        language: system
+        types: [go]
+      - id: check-constant-placement-go
+        name: check constant placement (go)
+        entry: dryclean check go check_constant_placement
+        language: system
+        types: [go]
+      - id: check-function-length-go
+        name: check function length (go)
+        entry: dryclean check go check_function_length
+        language: system
+        types: [go]
+      - id: check-inline-comments-go
+        name: check inline comments (go)
+        entry: dryclean check go check_inline_comments
+        language: system
+        types: [go]
+      - id: check-section-dividers-go
+        name: check section dividers (go)
+        entry: dryclean check go check_section_dividers
+        language: system
+        types: [go]
+      - id: check-snake-case-filename-go
+        name: check snake case filename (go)
+        entry: dryclean check go check_snake_case_filename
+        language: system
+        types: [go]
 
   - repo: local
     hooks:
