@@ -47,6 +47,20 @@
 
 ---
 
+## Go
+
+- `golangci-lint` — Format and lint Go files `[local: fix | ci: report]`
+- `check-argument-count-go` — Check max 4 arguments per function `[local + ci]`
+- `check-comment-density-go` — Check max 15% comment-to-code ratio per file `[local + ci]`
+- `check-comment-period-go` — Check comment period punctuation rule `[local + ci]`
+- `check-constant-placement-go` — Check constants before function definitions `[local + ci]`
+- `check-function-length-go` — Check max 30 lines per function `[local + ci]`
+- `check-inline-comments-go` — Reject inline comments `[local + ci]`
+- `check-section-dividers-go` — Reject section divider comments inside functions `[local + ci]`
+- `check-snake-case-filename-go` — Check snake_case file names `[local + ci]`
+
+---
+
 ## HTML
 
 - `prettier` — Format HTML files `[local: fix | ci: report]`
