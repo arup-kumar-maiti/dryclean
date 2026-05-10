@@ -26,6 +26,7 @@ _SKIP_ENV_VAR = "SKIP"
 _SKIPPED_MARKER = "Skipped"
 _TEMPLATE_NAMES = [
     "eslint.config.cjs",
+    "golangci.yml",
     "htmlhintrc.json",
     "mypy.ini",
     _PRE_COMMIT_CI,
