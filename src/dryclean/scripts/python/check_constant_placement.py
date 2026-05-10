@@ -5,12 +5,13 @@ usage:
   python scripts/python/check_constant_placement.py [FILE ...]
 """
 
-import argparse
 import ast
 import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+import typer
 
 _UPPER_SNAKE_CASE_PATTERN = re.compile(r"^[A-Z][A-Z0-9_]+$")
 
@@ -68,18 +69,17 @@ def _print_report(violations: list[_FileResult]) -> None:
         )
 
 
-def main() -> None:
-    """Run the check and exit with a non-zero status if violations are found."""
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-    parser.add_argument("files", nargs="*", type=Path, help="File paths to check")
-    args = parser.parse_args()
-
-    violations = _find_violations(args.files)
+def _run(
+    files: list[Path] = typer.Argument(default=None),
+) -> None:
+    violations = _find_violations(files or [])
     _print_report(violations)
     sys.exit(0 if not violations else 1)
+
+
+def main() -> None:
+    """Run the check and exit with a non-zero status if violations are found."""
+    typer.run(_run)
 
 
 if __name__ == "__main__":

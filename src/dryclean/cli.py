@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import argparse
 import subprocess
 import sys
 from pathlib import Path
+
+import typer
 
 from dryclean.checker import run_checks
 from dryclean.constant import CLAUDE_MD_PATH, WORKFLOW_PATH
@@ -17,42 +18,12 @@ _CLAUDE_MD_TEMPLATE = "CLAUDE.md.tmpl"
 _SCRIPTS_ROOT = Path(__file__).parent / "scripts"
 _WORKFLOW_TEMPLATE = "dryclean.yml.tmpl"
 
-
-def _add_commands(
-    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
-) -> None:
-    subparsers.add_parser("init", help="Set up quality checks in the current repo")
-    run_parser = subparsers.add_parser("run", help="Run all checks with auto-fix")
-    run_parser.add_argument("--ci", action="store_true", help="Run in report-only mode")
-    run_parser.add_argument("--skip", help="Skip comma-separated hook IDs")
-    commit_parser = subparsers.add_parser("commit")
-    commit_parser.add_argument("message_file", type=Path)
-    check_parser = subparsers.add_parser("check")
-    check_parser.add_argument("language")
-    check_parser.add_argument("script")
-    check_parser.add_argument("remaining", nargs="*")
+cli = typer.Typer(help="Multi-language code quality toolkit")
 
 
-def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser()
-    _add_commands(parser.add_subparsers(dest="command", metavar=""))
-    return parser
-
-
-def _handle_custom_check(args: argparse.Namespace) -> None:
-    script_path = _SCRIPTS_ROOT / args.language / f"{args.script}.py"
-    result = subprocess.run(
-        [sys.executable, str(script_path), *args.remaining],
-    )
-    sys.exit(result.returncode)
-
-
-def _handle_commit(args: argparse.Namespace) -> None:
-    passed = validate_commit_message(args.message_file)
-    sys.exit(0 if passed else 1)
-
-
-def _handle_init(args: argparse.Namespace) -> None:
+@cli.command()
+def init() -> None:
+    """Set up quality checks in the current repo."""
     header("dryclean Setup")
     write_file(CLAUDE_MD_PATH, read_template(_CLAUDE_MD_TEMPLATE))
     write_file(WORKFLOW_PATH, read_template(_WORKFLOW_TEMPLATE))
@@ -64,30 +35,41 @@ def _handle_init(args: argparse.Namespace) -> None:
     info("Done!")
 
 
-def _handle_run(args: argparse.Namespace) -> None:
-    skip = args.skip.split(",") if args.skip else None
-    all_passed = run_checks(Path("."), ci=args.ci, skip=skip)
+@cli.command()
+def run(
+    ci: bool = typer.Option(False, help="Run in report-only mode"),
+    skip: str | None = typer.Option(None, help="Skip comma-separated hook IDs"),
+) -> None:
+    """Run all checks with auto-fix."""
+    skip_list = skip.split(",") if skip else None
+    all_passed = run_checks(Path("."), ci=ci, skip=skip_list)
     sys.exit(0 if all_passed else 1)
 
 
-_COMMANDS = {
-    "check": _handle_custom_check,
-    "commit": _handle_commit,
-    "init": _handle_init,
-    "run": _handle_run,
-}
+@cli.command(hidden=True)
+def commit(message_file: Path = typer.Argument(...)) -> None:
+    """Validate a commit message file."""
+    passed = validate_commit_message(message_file)
+    sys.exit(0 if passed else 1)
+
+
+@cli.command(hidden=True)
+def check(
+    language: str = typer.Argument(...),
+    script: str = typer.Argument(...),
+    remaining: list[str] | None = typer.Argument(None),
+) -> None:
+    """Run a language-specific check script."""
+    script_path = _SCRIPTS_ROOT / language / f"{script}.py"
+    result = subprocess.run(
+        [sys.executable, str(script_path), *(remaining or [])],
+    )
+    sys.exit(result.returncode)
 
 
 def main() -> None:
     """Run the dryclean CLI."""
-    parser = _build_parser()
-    args = parser.parse_args()
-    handler = _COMMANDS.get(args.command)
-    if handler:
-        handler(args)
-    else:
-        parser.print_help()
-        sys.exit(1)
+    cli()
 
 
 if __name__ == "__main__":
