@@ -14,10 +14,10 @@ import typer
 
 _COMMENT_PREFIX = "//"
 _DIVIDER_PATTERNS = (
-    re.compile(r"^\s*step\s*\d+\b", re.IGNORECASE),
-    re.compile(r"^\s*region\b", re.IGNORECASE),
     re.compile(r"^\s*endregion\b", re.IGNORECASE),
+    re.compile(r"^\s*region\b", re.IGNORECASE),
     re.compile(r"^\s*section\b", re.IGNORECASE),
+    re.compile(r"^\s*step\s*\d+\b", re.IGNORECASE),
     re.compile(r"^\s*\d+[.):]\s"),
 )
 _FUNC_PATTERN = re.compile(r"^func\s+")
