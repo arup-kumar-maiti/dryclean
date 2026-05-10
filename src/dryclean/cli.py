@@ -18,7 +18,7 @@ _CLAUDE_MD_TEMPLATE = "CLAUDE.md.tmpl"
 _SCRIPTS_ROOT = Path(__file__).parent / "scripts"
 _WORKFLOW_TEMPLATE = "dryclean.yml.tmpl"
 
-cli = typer.Typer(help="Multi-language code quality toolkit")
+cli = typer.Typer(help="Run multi-language code quality checks")
 
 
 @cli.command()
@@ -47,13 +47,6 @@ def run(
 
 
 @cli.command(hidden=True)
-def commit(message_file: Path = typer.Argument(...)) -> None:
-    """Validate a commit message file."""
-    passed = validate_commit_message(message_file)
-    sys.exit(0 if passed else 1)
-
-
-@cli.command(hidden=True)
 def check(
     language: str = typer.Argument(...),
     script: str = typer.Argument(...),
@@ -65,6 +58,13 @@ def check(
         [sys.executable, str(script_path), *(remaining or [])],
     )
     sys.exit(result.returncode)
+
+
+@cli.command(hidden=True)
+def commit(message_file: Path = typer.Argument(...)) -> None:
+    """Validate a commit message file."""
+    passed = validate_commit_message(message_file)
+    sys.exit(0 if passed else 1)
 
 
 def main() -> None:
