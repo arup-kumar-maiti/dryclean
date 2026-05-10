@@ -3,6 +3,13 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-05-10
+
+### Added
+
+- Go code guidelines and commenting guidelines documentation.
+- Go language support with eight check scripts, golangci-lint config, pre-commit hooks, and CI setup.
+
 ## [1.4.0] - 2026-05-10
 
 ### Added
