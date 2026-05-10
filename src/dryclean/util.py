@@ -74,26 +74,25 @@ def write_file(path: Path, content: str, overwrite: bool = False) -> None:
     path.write_text(content, encoding="utf-8")
 
 
-def _find_marker_range(content: str) -> tuple[int, int] | None:
+def _has_markers(content: str) -> bool:
+    return MARKER_START in content and MARKER_END in content
+
+
+def _find_marker_range(content: str) -> tuple[int, int]:
     lines = content.splitlines()
-    start = None
-    end = None
+    start = 0
+    end = 0
     for index, line in enumerate(lines):
-        if line.strip() == MARKER_START and start is None:
+        if line.strip() == MARKER_START and start == 0:
             start = index
         if line.strip() == MARKER_END:
             end = index
-    if start is None or end is None:
-        return None
     return (start, end)
 
 
 def _replace_marked_section(existing: str, managed: str) -> str:
     lines = existing.splitlines()
-    marker_range = _find_marker_range(existing)
-    if marker_range is None:
-        return existing
-    start, end = marker_range
+    start, end = _find_marker_range(existing)
     before = lines[:start]
     after = lines[end + 1 :]
     managed_lines = managed.splitlines()
@@ -113,10 +112,10 @@ def update_claude_md(path: Path, template: str) -> None:
         path.write_text(template, encoding="utf-8")
         return
     existing = path.read_text(encoding="utf-8")
-    if _find_marker_range(existing) is None:
+    if not _has_markers(existing):
         combined = existing.rstrip() + "\n\n" + template
         path.write_text(combined, encoding="utf-8")
-        info("No dryclean markers found. Append rules to CLAUDE.md.")
+        info("No dryclean markers. Rules appended to CLAUDE.md.")
         return
     updated = _replace_marked_section(existing, template)
     path.write_text(updated, encoding="utf-8")
