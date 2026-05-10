@@ -1,20 +1,26 @@
+![CI](https://github.com/arup-kumar-maiti/dryclean/actions/workflows/dryclean.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![PyPI](https://img.shields.io/pypi/v/dryclean)
+![Downloads](https://img.shields.io/pypi/dm/dryclean)
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
+
 # dryclean
 
-Multi-language code quality toolkit. One install. Every supported file — checked.
+Multi-language code quality toolkit. One install. Check every supported file.
 
 ## Prerequisites
 
 - Python 3.11+
 - Node.js 18+ (for CSS, HTML, and JavaScript support)
 
-## Quick Start
+## Quickstart
 
 ```bash
 pip install dryclean
 dryclean init
 ```
 
-`dryclean init` — Write `CLAUDE.md`, the CI workflow, and git hooks. In an interactive shell, also prompt to configure GitHub branch protection and store a Claude Code OAuth token.
+`dryclean init` — write `CLAUDE.md`, the CI workflow, and git hooks. In an interactive shell, also configure GitHub branch protection and store a Claude Code OAuth token.
 
 ## Commands
 
