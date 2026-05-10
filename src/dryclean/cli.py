@@ -12,7 +12,14 @@ from dryclean.checker import run_checks
 from dryclean.constant import CLAUDE_MD_PATH, WORKFLOW_PATH
 from dryclean.github import setup_github
 from dryclean.hook import install_hooks, validate_commit_message
-from dryclean.util import header, info, read_template, warning, write_file
+from dryclean.util import (
+    header,
+    info,
+    read_template,
+    update_claude_md,
+    warning,
+    write_file,
+)
 
 _CLAUDE_MD_TEMPLATE = "CLAUDE.md.tmpl"
 _SCRIPTS_ROOT = Path(__file__).parent / "scripts"
@@ -25,13 +32,22 @@ cli = typer.Typer(help="Run multi-language code quality checks")
 def init() -> None:
     """Set up quality checks in the current repo."""
     header("dryclean Setup")
-    write_file(CLAUDE_MD_PATH, read_template(_CLAUDE_MD_TEMPLATE))
+    update_claude_md(CLAUDE_MD_PATH, read_template(_CLAUDE_MD_TEMPLATE))
     write_file(WORKFLOW_PATH, read_template(_WORKFLOW_TEMPLATE))
     install_hooks()
     if sys.stdin.isatty():
         setup_github()
     else:
         warning("Non-interactive shell. Skipping GitHub setup.")
+    info("Done!")
+
+
+@cli.command()
+def update() -> None:
+    """Update quality checks to the latest version."""
+    header("dryclean Update")
+    update_claude_md(CLAUDE_MD_PATH, read_template(_CLAUDE_MD_TEMPLATE))
+    write_file(WORKFLOW_PATH, read_template(_WORKFLOW_TEMPLATE), overwrite=True)
     info("Done!")
 
 

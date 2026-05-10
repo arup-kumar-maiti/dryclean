@@ -1,3 +1,4 @@
+<!-- dryclean:start -->
 # CLAUDE.md
 
 Non-negotiable rules for this repo. Language-specific details are in `docs/<language>/CODE_GUIDELINES.md` and `docs/<language>/COMMENTING_GUIDELINES.md`.
@@ -496,3 +497,4 @@ Apply these when editing `.sh` files, in addition to universal rules.
 - Executable permission on all `.sh` files.
 - Quote all variable expansions (`"$VAR"`, not `$VAR`).
 - `shellcheck` is final.
+<!-- dryclean:end -->
