@@ -50,3 +50,11 @@ Refer to [Quality Checks](https://github.com/arup-kumar-maiti/dryclean/blob/main
   with:
     claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 ```
+
+## Show Your Support
+
+Add the badge to your project's README:
+
+```markdown
+[![checked with: dryclean](https://img.shields.io/badge/checked%20with-dryclean-purple)](https://github.com/arup-kumar-maiti/dryclean)
+```
